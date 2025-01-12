@@ -6,8 +6,7 @@ import { Card } from "@/components/ui/card";
 
 export function HeroSection() {
   return (
-    <section id="home" className="relative overflow-hidden py-20 sm:py-32">
-      <div className="absolute inset-0 bg-primary/5" />
+    <section id="home" className="relative overflow-hidden py-20 sm:py-32 bg-background">
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Logo */}
