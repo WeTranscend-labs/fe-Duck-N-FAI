@@ -61,25 +61,22 @@ export function DemoSection() {
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`flex items-start gap-3 ${
-                    message.type === 'user' ? 'flex-row-reverse' : ''
-                  }`}
+                  className={`flex items-start gap-3 ${message.type === 'user' ? 'flex-row-reverse' : ''
+                    }`}
                 >
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${
-                    message.type === 'user' 
-                      ? 'bg-blue-600' 
+                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${message.type === 'user'
+                      ? 'bg-blue-600'
                       : 'bg-emerald-600'
-                  }`}>
-                    {message.type === 'user' 
+                    }`}>
+                    {message.type === 'user'
                       ? <User className="h-5 w-5 text-white" />
                       : <Bot className="h-5 w-5 text-white" />
                     }
                   </div>
-                  <div className={`rounded-xl p-4 max-w-[80%] ${
-                    message.type === 'user'
+                  <div className={`rounded-xl p-4 max-w-[80%] ${message.type === 'user'
                       ? 'bg-blue-600 text-white'
                       : 'bg-muted'
-                  }`}>
+                    }`}>
                     <p className="whitespace-pre-line">{message.content}</p>
                   </div>
                 </div>
