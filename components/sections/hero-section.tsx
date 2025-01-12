@@ -1,8 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Shield, Clock, Sparkles } from "lucide-react";
+import { ArrowRight, Shield, Clock } from "lucide-react";
+import { GiDuck } from "react-icons/gi";
 import { Card } from "@/components/ui/card";
+
 
 export function HeroSection() {
   return (
@@ -12,7 +14,7 @@ export function HeroSection() {
           {/* Logo */}
           <div className="mx-auto mb-8 h-24 w-24 rounded-full bg-primary p-1">
             <div className="flex h-full w-full items-center justify-center rounded-full bg-background">
-              <Zap className="h-12 w-12 text-primary" />
+              <GiDuck className="h-12 w-12 text-primary" />
             </div>
           </div>
 
@@ -30,15 +32,15 @@ export function HeroSection() {
           {/* Quick Benefits */}
           <div className="mb-8 grid gap-4 sm:grid-cols-3">
             <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-              <Shield className="h-5 w-5 text-primary" />
+              <GiDuck className="h-5 w-5 text-primary" />
               <span>DuckStrike Security</span>
             </div>
             <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-              <Clock className="h-5 w-5 text-primary" />
+              <GiDuck className="h-5 w-5 text-primary" />
               <span>Fast Confirmations</span>
             </div>
             <div className="flex items-center justify-center space-x-2 text-muted-foreground">
-              <Sparkles className="h-5 w-5 text-primary" />
+              <GiDuck className="h-5 w-5 text-primary" />
               <span>AI Integration</span>
             </div>
           </div>
@@ -74,8 +76,8 @@ export function HeroSection() {
             </Card>
           </div>
 
-          {/* Extension Preview */}
-          <div className="relative mx-auto max-w-3xl">
+          {/* Extension Preview with DuckChain Link */}
+          <div className="relative mx-auto max-w-3xl mb-16">
             <div className="absolute -left-4 -right-4 -top-4 -z-10 h-[120%] bg-primary/10 blur-3xl" />
             <div className="overflow-hidden rounded-2xl bg-primary p-1 shadow-2xl">
               <img
@@ -85,6 +87,8 @@ export function HeroSection() {
               />
             </div>
           </div>
+
+
 
           {/* Trust Indicators */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
