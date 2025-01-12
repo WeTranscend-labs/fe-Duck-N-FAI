@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun, Zap, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { GiDuck } from "react-icons/gi";
 
 interface NavbarProps {
   onNavigate: (section: string) => void;
@@ -38,7 +39,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
         <div className="flex items-center space-x-2">
           <div className="h-8 w-8 rounded-full bg-primary p-0.5">
             <div className="flex h-full w-full items-center justify-center rounded-full bg-background/80">
-              <Zap className="h-4 w-4 text-primary" />
+              <GiDuck className="h-4 w-4 text-primary" />
             </div>
           </div>
           <button
