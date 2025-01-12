@@ -5,6 +5,8 @@ import { HeroSection } from "@/components/sections/hero-section";
 import { FeaturesSection } from "@/components/sections/features-section";
 import { StatsSection } from "@/components/sections/stats-section";
 import { DemoSection } from "@/components/sections/demo-section";
+import { ContactSection } from "@/components/sections/contact-section";
+
 
 export default function Home() {
   const scrollToSection = (id: string) => {
@@ -22,6 +24,8 @@ export default function Home() {
         <FeaturesSection />
         <StatsSection />
         <DemoSection />
+        <ContactSection />
+
       </main>
     </>
   );
