@@ -16,7 +16,7 @@ export function HeroSection() {
               <Zap className="h-12 w-12 text-primary" />
             </div>
           </div>
-          
+
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
             Experience{" "}
             <span className="text-primary">
@@ -24,7 +24,7 @@ export function HeroSection() {
             </span>
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
-            Revolutionize your crypto experience with our AI-powered DuckStrike extension. 
+            Revolutionize your crypto experience with our AI-powered DuckStrike extension.
             Simple commands, powerful results - all on the secure DuckStrike network.
           </p>
 
