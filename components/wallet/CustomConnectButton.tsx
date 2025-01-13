@@ -1,46 +1,45 @@
 'use client';
 
-import { Button } from '../ui/button';
 import { useToast } from '@/hooks/use-toast';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@radix-ui/react-tooltip';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Anchor, ChevronDown, MapPin, OctagonAlert, Ship } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect } from 'react';
+import { Copy, Check, Network, Zap } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Button } from '../ui/button';
+import { Player } from '@lordicon/react';
 
-type Props = {
-  isScrolled: boolean;
-};
+import duckIcon from '@/public/assets/duck.json';
 
 export function CustomConnectButton() {
-  const { theme, systemTheme, resolvedTheme } = useTheme();
   const { toast } = useToast();
+  const playerRef = useRef<Player>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('light', theme === 'light');
-  }, [theme, systemTheme, resolvedTheme]);
+    if (isHovered) {
+      playerRef.current?.playFromBeginning();
+    }
+  }, [isHovered]);
 
   function formatAddress(address: string) {
     return `${address.slice(0, 4)}...${address.slice(-4)}`;
   }
 
-  const handleCopy = (e: any, account: any) => {
+  const handleCopy = (e: React.MouseEvent, address: string) => {
     e.stopPropagation();
     navigator.clipboard
-      .writeText(account.address)
+      .writeText(address)
       .then(() => {
         toast({
           title: 'Address Copied',
-          description: 'Wallet address has been copied to clipboard',
+          description: 'DuckChain wallet address copied',
           duration: 2000,
-          variant: 'default',
         });
+
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
       })
-      .catch((err) => {
+      .catch(() => {
         toast({
           title: 'Copy Failed',
           description: 'Unable to copy address',
@@ -68,103 +67,88 @@ export function CustomConnectButton() {
           chain &&
           (!authenticationStatus || authenticationStatus === 'authenticated');
 
+        if (!ready) {
+          return (
+            <Button variant="outline" disabled>
+              Connecting...
+            </Button>
+          );
+        }
+
+        if (!connected) {
+          return (
+            <Button
+              onClick={openConnectModal}
+              variant="default"
+              className="flex items-center justify-center group"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <div className="mr-2">
+                <Player
+                  ref={playerRef}
+                  icon={duckIcon}
+                  size={28}
+                  renderMode={'AUTOMATIC'}
+                  state={isHovered ? 'hover' : 'idle'}
+                />
+              </div>
+              <span className="">Connect DuckChain</span>
+            </Button>
+          );
+        }
+
+        if (chain.unsupported) {
+          return (
+            <Button
+              onClick={openChainModal}
+              variant="destructive"
+              className="flex items-center gap-2"
+            >
+              <Network className="h-5 w-5" />
+              <span>Unsupported Network</span>
+            </Button>
+          );
+        }
+
         return (
-          <div
-            {...(!ready && {
-              'aria-hidden': true,
-              style: {
-                opacity: 0,
-                pointerEvents: 'none',
-                userSelect: 'none',
-              },
-            })}
-          >
-            {(() => {
-              if (!connected) {
-                return (
-                  <Button
-                    onClick={openConnectModal}
-                    variant="default"
-                    className={`flex items-center justify-center group relative overflow-hidden  backdrop-blur-sm transition-all duration-300`}
-                  >
-                    <Anchor
-                      className={`mr-2 h-4 w-4 text-white 
-                      group-hover:animate-[anchor_1.5s_ease-in-out_infinite]
-                      transition-transform relative z-10`}
+          <div className="flex items-center space-x-2">
+            {/* Network Indicator */}
+            <Button
+              onClick={openChainModal}
+              variant="secondary"
+              className="flex items-center gap-2"
+            >
+              <Network className="h-5 w-5 text-primary" />
+              <span className="text-sm">{chain.name}</span>
+            </Button>
+
+            {/* Account Details */}
+            <Button
+              onClick={openAccountModal}
+              variant="default"
+              className="flex items-center gap-2 group"
+            >
+              <Zap className="h-5 w-5 group-hover:animate-spin" />
+              <div className="flex flex-col items-start">
+                <span className="text-sm font-medium">
+                  {account.displayBalance}
+                </span>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs opacity-70">
+                    {formatAddress(account.address)}
+                  </span>
+                  {isCopied ? (
+                    <Check className="h-3 w-3 text-green-500" />
+                  ) : (
+                    <Copy
+                      className="h-3 w-3 cursor-pointer opacity-50 hover:opacity-100"
+                      onClick={(e) => handleCopy(e, account.address)}
                     />
-                    <span className="truncate">Connect Wallet</span>
-                  </Button>
-                );
-              }
-
-              if (chain.unsupported) {
-                return (
-                  <Button
-                    onClick={openChainModal}
-                    variant="destructive"
-                    className="flex items-center gap-2 px-4 py-2"
-                  >
-                    <OctagonAlert className="h-4 w-4" />
-                    <span>Unsupported Maritime Network</span>
-                  </Button>
-                );
-              }
-
-              return (
-                <div className="flex items-center space-x-1">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        onClick={openChainModal}
-                        variant="secondary"
-                        className={`flex items-center justify-center w-10 transition-all duration-300`}
-                      >
-                        <MapPin className="h-4 w-4 text-blue-500" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent
-                      side="bottom"
-                      sideOffset={10}
-                      className="border-none"
-                    >
-                      <Button variant="outline">
-                        <MapPin className="h-4 w-4" />
-                        <span>{chain.name}</span>
-                      </Button>
-                    </TooltipContent>
-                  </Tooltip>
-
-                  <Button
-                    onClick={openAccountModal}
-                    variant="default"
-                    className={`group flex items-center gap-2 relative overflow-hidden backdrop-blur-sm transition-all duration-300`}
-                  >
-                    <div className="relative">
-                      <Ship
-                        className={`h-4 w-4 text-white/80 group-hover:animate-[wave_1.5s_ease-in-out_infinite] transition-transform`}
-                      />
-                      <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity">
-                        <div className="absolute w-2 h-0.5 bg-white/50 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:animate-[wake_1.5s_linear_infinite]"></div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span className={`text-sm font-medium`}>
-                        {account.displayBalance}
-                      </span>
-                      <span className={`text-xs flex items-center`}>
-                        <span
-                          className="cursor-copy"
-                          onClick={(e) => handleCopy(e, account)}
-                        >
-                          {formatAddress(account.address)}
-                        </span>
-                      </span>
-                    </div>
-                    <ChevronDown className="ml-auto h-4 w-4 text-white/50" />
-                  </Button>
+                  )}
                 </div>
-              );
-            })()}
+              </div>
+            </Button>
           </div>
         );
       }}

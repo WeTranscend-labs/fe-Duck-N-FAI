@@ -1,11 +1,11 @@
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AI } from '@/llm/actions';
-import { TooltipProvider } from '@radix-ui/react-tooltip';
 import WalletProvider from '@/providers/WalletProvider';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 import '@rainbow-me/rainbowkit/styles.css';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

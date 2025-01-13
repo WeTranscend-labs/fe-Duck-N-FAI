@@ -1,19 +1,18 @@
 'use client';
 
-import { ChatList } from '../chat/chat-list';
-import { ChatScrollAnchor } from '../chat/chat-scroll-anchor';
 import { UserMessage } from '@/components/llm-crypto/message';
 import { Button } from '@/components/ui/button';
-import type { ChatInputs } from '@/lib/schemas/chat-schema';
 import { useEnterSubmit } from '@/hooks/use-enter-submit';
 import { useForm } from '@/hooks/use-form';
+import type { ChatInputs } from '@/lib/schemas/chat-schema';
+import type { AI } from '@/llm/actions';
 import { useActions, useUIState } from 'ai/rsc';
-import { ArrowDownIcon, PlusIcon } from 'lucide-react';
+import { ArrowDownIcon, PlusIcon, SendIcon } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import TextareaAutosize from 'react-textarea-autosize';
-import type { AI } from '@/llm/actions';
-import { CustomConnectButton } from '@/components/wallet/CustomConnectButton';
+import { ChatList } from '../chat/chat-list';
+import { ChatScrollAnchor } from '../chat/chat-scroll-anchor';
 
 export function DemoSection() {
   const [messages, setMessages] = useUIState<typeof AI>();
@@ -73,23 +72,25 @@ export function DemoSection() {
   };
 
   return (
-    <main>
-      <CustomConnectButton />
-
-      <div className="pb-[200px] pt-4 md:pt-10">
-        <ChatList messages={messages} />
-        <ChatScrollAnchor trackVisibility={true} />
+    <main className="flex flex-col h-screen">
+      <div className="pt-4 pb-20">
+        <div className="mx-auto px-4">
+          <ChatList messages={messages} />
+          <ChatScrollAnchor trackVisibility={true} />
+        </div>
       </div>
-      <div className="w-full bg-gradient-to-b from-muted/30 from-0% to-muted/30 to-50% duration-300 ease-in-out animate-in dark:from-background/10 dark:from-10% dark:to-background/80 peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px]">
-        <div className="mx-auto sm:max-w-2xl sm:px-4">
-          <div className="px-4 flex justify-center flex-col py-2 space-y-4 border-t shadow-lg bg-background sm:rounded-t-xl sm:border md:py-4 bg-white">
+
+      <div className="w-full bg-gradient-to-t from-background via-background/90 to-background/50 pb-3 backdrop-blur-lg">
+        <div className="mx-auto max-w-3xl px-4">
+          <div className="relative rounded-xl border bg-card/50 p-2 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
             <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
-              <div className="relative flex flex-col w-full overflow-hidden max-h-60 grow bg-background sm:rounded-md sm:border">
+              <div className="relative flex items-center gap-2">
                 <TextareaAutosize
+                  // ref={inputRef}
                   tabIndex={0}
                   onKeyDown={onKeyDown}
-                  placeholder="Send a message."
-                  className="min-h-[60px] w-full resize-none bg-transparent pl-4 pr-16 py-[1.3rem] focus-within:outline-none sm:text-sm"
+                  placeholder="Type your message... (Press / to focus)"
+                  className="min-h-[48px] w-full resize-none rounded-lg bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 dark:bg-muted/50"
                   autoFocus
                   spellCheck={false}
                   autoComplete="off"
@@ -97,30 +98,31 @@ export function DemoSection() {
                   rows={1}
                   {...form.register('message')}
                 />
-                <div className="absolute right-0 top-4 sm:right-4">
+                <div className="flex items-center gap-2">
                   <Button
                     type="submit"
                     size="icon"
                     disabled={form.watch('message') === ''}
+                    className="h-8 w-8 shrink-0 rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-50"
                   >
-                    <ArrowDownIcon className="w-5 h-5" />
+                    <SendIcon className="h-4 w-4" />
                     <span className="sr-only">Send message</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 shrink-0 rounded-lg hover:bg-muted/50"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.reload();
+                    }}
+                  >
+                    <PlusIcon className="h-4 w-4" />
+                    <span className="sr-only">New Chat</span>
                   </Button>
                 </div>
               </div>
             </form>
-            <Button
-              variant="outline"
-              size="lg"
-              className="p-4 mt-4 rounded-full bg-background"
-              onClick={(e) => {
-                e.preventDefault();
-                window.location.reload();
-              }}
-            >
-              <PlusIcon className="w-5 h-5" />
-              <span>New Chat</span>
-            </Button>
           </div>
         </div>
       </div>
