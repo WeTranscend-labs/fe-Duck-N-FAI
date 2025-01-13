@@ -1,106 +1,129 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { Bot, Send, User } from "lucide-react";
-
-interface Message {
-  type: 'user' | 'bot';
-  content: string;
-}
+import { ChatList } from '../chat/chat-list';
+import { ChatScrollAnchor } from '../chat/chat-scroll-anchor';
+import { UserMessage } from '@/components/llm-crypto/message';
+import { Button } from '@/components/ui/button';
+import type { ChatInputs } from '@/lib/schemas/chat-schema';
+import { useEnterSubmit } from '@/hooks/use-enter-submit';
+import { useForm } from '@/hooks/use-form';
+import { useActions, useUIState } from 'ai/rsc';
+import { ArrowDownIcon, PlusIcon } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import TextareaAutosize from 'react-textarea-autosize';
+import type { AI } from '@/llm/actions';
+import { CustomConnectButton } from '@/components/wallet/CustomConnectButton';
 
 export function DemoSection() {
-  const [messages, setMessages] = useState<Message[]>([
-    { type: 'bot', content: 'Hi! I can help you send crypto quickly. Try saying something like "send 0.5 ETH to Alex" or "transfer 100 USDT to 0x1234..."' }
-  ]);
-  const [input, setInput] = useState('');
+  const [messages, setMessages] = useUIState<typeof AI>();
+  const { sendMessage } = useActions<typeof AI>();
+  const { formRef, onKeyDown } = useEnterSubmit();
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  const form = useForm<ChatInputs>();
 
-    // Add user message
-    setMessages(prev => [...prev, { type: 'user', content: input }]);
-
-    // Simulate AI response
-    setTimeout(() => {
-      let response = '';
-      const lowerInput = input.toLowerCase();
-
-      if (lowerInput.includes('send') || lowerInput.includes('transfer')) {
-        response = "I've analyzed your request and here's what I understood:\n" +
-          "✓ Action: Transfer cryptocurrency\n" +
-          "✓ Amount: " + (lowerInput.match(/\d+(\.\d+)?/) || [''])[0] + "\n" +
-          "✓ Currency: " + (lowerInput.match(/eth|btc|usdt/i) || [''])[0].toUpperCase() + "\n" +
-          "✓ Recipient: " + (lowerInput.match(/to\s+(\w+)/i)?.[1] || 'Unknown') + "\n\n" +
-          "Would you like me to prepare this transaction?";
-      } else {
-        response = "I'm not sure I understood that. Try saying something like 'send 0.5 ETH to Alex' or 'transfer 100 USDT to 0x1234...'";
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/') {
+        if (
+          e.target &&
+          ['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).nodeName)
+        ) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (inputRef?.current) {
+          inputRef.current.focus();
+        }
       }
+    };
 
-      setMessages(prev => [...prev, { type: 'bot', content: response }]);
-    }, 1000);
+    document.addEventListener('keydown', handleKeyDown);
 
-    setInput('');
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [inputRef]);
+
+  const submitHandler: SubmitHandler<ChatInputs> = async (data) => {
+    const value = data.message.trim();
+    formRef.current?.reset();
+    if (!value) return;
+
+    // Add user message UI
+    setMessages((currentMessages) => [
+      ...currentMessages,
+      {
+        id: Date.now(),
+        role: 'user',
+        display: <UserMessage>{value}</UserMessage>,
+      },
+    ]);
+
+    try {
+      // Submit and get response message
+      const responseMessage = await sendMessage(value);
+      setMessages((currentMessages) => [...currentMessages, responseMessage]);
+    } catch (error) {
+      // You may want to show a toast or trigger an error state.
+      console.error(error);
+    }
   };
 
   return (
-    <section id="demo" className="py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold">Experience AI-Powered Transactions</h2>
-          <p className="text-muted-foreground">
-            Our advanced AI understands natural language, making crypto transfers as easy as chatting
-          </p>
-        </div>
+    <main>
+      <CustomConnectButton />
 
-        <div className="mx-auto max-w-2xl">
-          <Card className="p-4 shadow-xl">
-            <div className="mb-4 h-[400px] overflow-y-auto space-y-4 p-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex items-start gap-3 ${message.type === 'user' ? 'flex-row-reverse' : ''
-                    }`}
-                >
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${message.type === 'user'
-                      ? 'bg-blue-600'
-                      : 'bg-emerald-600'
-                    }`}>
-                    {message.type === 'user'
-                      ? <User className="h-5 w-5 text-white" />
-                      : <Bot className="h-5 w-5 text-white" />
-                    }
-                  </div>
-                  <div className={`rounded-xl p-4 max-w-[80%] ${message.type === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-muted'
-                    }`}>
-                    <p className="whitespace-pre-line">{message.content}</p>
-                  </div>
+      <div className="pb-[200px] pt-4 md:pt-10">
+        <ChatList messages={messages} />
+        <ChatScrollAnchor trackVisibility={true} />
+      </div>
+      <div className="w-full bg-gradient-to-b from-muted/30 from-0% to-muted/30 to-50% duration-300 ease-in-out animate-in dark:from-background/10 dark:from-10% dark:to-background/80 peer-[[data-state=open]]:group-[]:lg:pl-[250px] peer-[[data-state=open]]:group-[]:xl:pl-[300px]">
+        <div className="mx-auto sm:max-w-2xl sm:px-4">
+          <div className="px-4 flex justify-center flex-col py-2 space-y-4 border-t shadow-lg bg-background sm:rounded-t-xl sm:border md:py-4 bg-white">
+            <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
+              <div className="relative flex flex-col w-full overflow-hidden max-h-60 grow bg-background sm:rounded-md sm:border">
+                <TextareaAutosize
+                  tabIndex={0}
+                  onKeyDown={onKeyDown}
+                  placeholder="Send a message."
+                  className="min-h-[60px] w-full resize-none bg-transparent pl-4 pr-16 py-[1.3rem] focus-within:outline-none sm:text-sm"
+                  autoFocus
+                  spellCheck={false}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  rows={1}
+                  {...form.register('message')}
+                />
+                <div className="absolute right-0 top-4 sm:right-4">
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={form.watch('message') === ''}
+                  >
+                    <ArrowDownIcon className="w-5 h-5" />
+                    <span className="sr-only">Send message</span>
+                  </Button>
                 </div>
-              ))}
-            </div>
-
-            <div className="flex gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Try: send 0.5 ETH to Alex"
-                className="rounded-xl"
-              />
-              <Button
-                onClick={handleSend}
-                className="rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </Card>
+              </div>
+            </form>
+            <Button
+              variant="outline"
+              size="lg"
+              className="p-4 mt-4 rounded-full bg-background"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.reload();
+              }}
+            >
+              <PlusIcon className="w-5 h-5" />
+              <span>New Chat</span>
+            </Button>
+          </div>
         </div>
       </div>
-    </section>
+    </main>
   );
 }
