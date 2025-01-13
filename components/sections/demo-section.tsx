@@ -7,8 +7,8 @@ import { useForm } from '@/hooks/use-form';
 import type { ChatInputs } from '@/lib/schemas/chat-schema';
 import type { AI } from '@/llm/actions';
 import { useActions, useUIState } from 'ai/rsc';
-import { ArrowDownIcon, PlusIcon, SendIcon } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { ArrowDownIcon, PlusIcon, SendIcon, RefreshCwIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import TextareaAutosize from 'react-textarea-autosize';
 import { ChatList } from '../chat/chat-list';
@@ -19,6 +19,9 @@ export function DemoSection() {
   const { sendMessage } = useActions<typeof AI>();
   const { formRef, onKeyDown } = useEnterSubmit();
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Thêm state để quản lý việc reset chat
+  const [chatKey, setChatKey] = useState(Date.now());
 
   const form = useForm<ChatInputs>();
 
@@ -66,14 +69,22 @@ export function DemoSection() {
       const responseMessage = await sendMessage(value);
       setMessages((currentMessages) => [...currentMessages, responseMessage]);
     } catch (error) {
-      // You may want to show a toast or trigger an error state.
       console.error(error);
     }
   };
 
+  // Hàm reset chat
+  const handleNewChat = () => {
+    // Tạo key mới để reset toàn bộ chat
+    setChatKey(Date.now());
+    // Reset messages
+    setMessages([]);
+  };
+
   return (
     <main className="flex flex-col h-screen">
-      <div className="pt-4 pb-20">
+      {/* Sử dụng key để reset toàn bộ chat */}
+      <div key={chatKey} className="pt-4 pb-20">
         <div className="mx-auto px-4">
           <ChatList messages={messages} />
           <ChatScrollAnchor trackVisibility={true} />
@@ -86,7 +97,6 @@ export function DemoSection() {
             <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
               <div className="relative flex items-center gap-2">
                 <TextareaAutosize
-                  // ref={inputRef}
                   tabIndex={0}
                   onKeyDown={onKeyDown}
                   placeholder="Type your message... (Press / to focus)"
@@ -114,10 +124,10 @@ export function DemoSection() {
                     className="h-8 w-8 shrink-0 rounded-lg hover:bg-muted/50"
                     onClick={(e) => {
                       e.preventDefault();
-                      window.location.reload();
+                      handleNewChat();
                     }}
                   >
-                    <PlusIcon className="h-4 w-4" />
+                    <RefreshCwIcon className="h-4 w-4" />
                     <span className="sr-only">New Chat</span>
                   </Button>
                 </div>

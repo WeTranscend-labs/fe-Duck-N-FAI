@@ -12,6 +12,7 @@ import {
 import { formatPrice } from '@/lib/format-price';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 interface StatsProps {
   name: string;
@@ -34,6 +35,7 @@ const PropDefaults: StatsProps = {
 };
 
 export function Stats(props: StatsProps = PropDefaults) {
+  const { resolvedTheme } = useTheme();
   const {
     name,
     rank,
@@ -43,6 +45,38 @@ export function Stats(props: StatsProps = PropDefaults) {
     marketCap,
     dominance,
   } = props;
+
+  // Theme configuration
+  const themeClasses = {
+    light: {
+      background: 'bg-gradient-to-br from-zinc-100 to-zinc-200',
+      border: 'border-zinc-200/50',
+      header: 'bg-zinc-200/50 backdrop-blur-sm border-zinc-300/30',
+      text: {
+        primary: 'text-zinc-800',
+        secondary: 'text-zinc-600',
+        muted: 'text-zinc-500',
+      },
+      statsItem:
+        'bg-white/60 backdrop-blur-lg border-zinc-200/50 hover:bg-zinc-100/80',
+      gradient: 'from-blue-300 to-purple-400',
+    },
+    dark: {
+      background: 'bg-gradient-to-br from-zinc-900 to-zinc-800',
+      border: 'border-zinc-700/50',
+      header: 'bg-zinc-800/50 backdrop-blur-sm border-zinc-700/30',
+      text: {
+        primary: 'text-zinc-300',
+        secondary: 'text-zinc-500',
+        muted: 'text-zinc-400',
+      },
+      statsItem: 'bg-zinc-800/60 border-zinc-700/30 hover:bg-zinc-800/80',
+      gradient: 'from-blue-400 to-purple-500',
+    },
+  };
+
+  const currentTheme =
+    resolvedTheme === 'dark' ? themeClasses.dark : themeClasses.light;
 
   const statsItems = [
     {
@@ -99,15 +133,42 @@ export function Stats(props: StatsProps = PropDefaults) {
       className="w-full max-w-full mx-auto"
     >
       <Card
-        className="bg-gradient-to-br from-zinc-900 to-zinc-800 
-        border-zinc-700/50 shadow-2xl rounded-2xl overflow-hidden 
-        w-full"
+        className={`
+          ${currentTheme.background}
+          ${currentTheme.border}
+          shadow-2xl 
+          rounded-2xl 
+          overflow-hidden 
+          w-full
+        `}
       >
-        <CardHeader className="bg-zinc-800/50 backdrop-blur-sm p-4 border-b border-zinc-700/30">
-          <CardTitle className="text-lg font-bold text-white flex items-center">
+        <CardHeader
+          className={`
+            ${currentTheme.header}
+            p-4 
+            border-b
+            flex 
+            items-center 
+            justify-between
+          `}
+        >
+          <CardTitle
+            className={`
+              text-lg 
+              font-bold 
+              ${currentTheme.text.primary}
+              flex 
+              items-center
+            `}
+          >
             <span
-              className="mr-2 bg-gradient-to-r from-blue-400 to-purple-500 
-              text-transparent bg-clip-text"
+              className={`
+                mr-2 
+                bg-gradient-to-r 
+                ${currentTheme.gradient}
+                text-transparent 
+                bg-clip-text
+              `}
             >
               {name}
             </span>
@@ -115,11 +176,7 @@ export function Stats(props: StatsProps = PropDefaults) {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4 space-y-2">
-          {' '}
-          {/* Giảm padding */}
           <div className="grid grid-cols-3 gap-2">
-            {' '}
-            {/* Thay đổi thành 3 cột */}
             {statsItems.map((item, index) => (
               <motion.div
                 key={index}
@@ -130,25 +187,34 @@ export function Stats(props: StatsProps = PropDefaults) {
                   type: 'spring',
                   stiffness: 100,
                 }}
-                className="bg-zinc-800/60 
+                className={`
+                  ${currentTheme.statsItem}
                   rounded-lg 
                   p-2 
                   border 
-                  border-zinc-700/30 
-                  hover:bg-zinc-800/80 
+                  hover:scale-[1.02] 
                   transition-all 
                   duration-300 
-                  group"
+                  group
+                `}
               >
                 <div className="flex items-center mb-1">
                   {item.icon}
-                  <span className="ml-1 text-[10px] text-zinc-400 group-hover:text-white transition-colors">
+                  <span
+                    className={`
+                      ml-1 
+                      text-[10px] 
+                      ${currentTheme.text.muted}
+                      group-hover:text-inherit 
+                      transition-colors
+                    `}
+                  >
                     {item.label}
                   </span>
                 </div>
                 <div
                   className={cn(
-                    'text-sm font-bold', // Giảm kích thước chữ
+                    'text-sm font-bold',
                     item.color,
                     'group-hover:scale-105 transition-transform'
                   )}

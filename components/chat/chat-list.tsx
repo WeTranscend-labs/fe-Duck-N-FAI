@@ -68,7 +68,7 @@ export function ChatList({ messages }: { messages: UIState[number][] }) {
 
   return (
     <div
-      className="relative overflow-y-auto h-[300px] scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent custom-scrollbar"
+      className="relative overflow-y-auto h-[400px] scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent custom-scrollbar"
       ref={chatContainerRef}
     >
       <div className="relative w-full px-4 py-4">
