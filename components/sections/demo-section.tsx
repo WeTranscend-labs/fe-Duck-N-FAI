@@ -1,106 +1,141 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { Bot, Send, User } from "lucide-react";
-
-interface Message {
-  type: 'user' | 'bot';
-  content: string;
-}
+import { UserMessage } from '@/components/llm-crypto/message';
+import { Button } from '@/components/ui/button';
+import { useEnterSubmit } from '@/hooks/use-enter-submit';
+import { useForm } from '@/hooks/use-form';
+import type { ChatInputs } from '@/lib/schemas/chat-schema';
+import type { AI } from '@/llm/actions';
+import { useActions, useUIState } from 'ai/rsc';
+import { ArrowDownIcon, PlusIcon, SendIcon, RefreshCwIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import TextareaAutosize from 'react-textarea-autosize';
+import { ChatList } from '../chat/chat-list';
+import { ChatScrollAnchor } from '../chat/chat-scroll-anchor';
 
 export function DemoSection() {
-  const [messages, setMessages] = useState<Message[]>([
-    { type: 'bot', content: 'Hi! I can help you send crypto quickly. Try saying something like "send 0.5 ETH to Alex" or "transfer 100 USDT to 0x1234..."' }
-  ]);
-  const [input, setInput] = useState('');
+  const [messages, setMessages] = useUIState<typeof AI>();
+  const { sendMessage } = useActions<typeof AI>();
+  const { formRef, onKeyDown } = useEnterSubmit();
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  // Thêm state để quản lý việc reset chat
+  const [chatKey, setChatKey] = useState(Date.now());
 
-    // Add user message
-    setMessages(prev => [...prev, { type: 'user', content: input }]);
+  const form = useForm<ChatInputs>();
 
-    // Simulate AI response
-    setTimeout(() => {
-      let response = '';
-      const lowerInput = input.toLowerCase();
-
-      if (lowerInput.includes('send') || lowerInput.includes('transfer')) {
-        response = "I've analyzed your request and here's what I understood:\n" +
-          "✓ Action: Transfer cryptocurrency\n" +
-          "✓ Amount: " + (lowerInput.match(/\d+(\.\d+)?/) || [''])[0] + "\n" +
-          "✓ Currency: " + (lowerInput.match(/eth|btc|usdt/i) || [''])[0].toUpperCase() + "\n" +
-          "✓ Recipient: " + (lowerInput.match(/to\s+(\w+)/i)?.[1] || 'Unknown') + "\n\n" +
-          "Would you like me to prepare this transaction?";
-      } else {
-        response = "I'm not sure I understood that. Try saying something like 'send 0.5 ETH to Alex' or 'transfer 100 USDT to 0x1234...'";
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/') {
+        if (
+          e.target &&
+          ['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).nodeName)
+        ) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        if (inputRef?.current) {
+          inputRef.current.focus();
+        }
       }
+    };
 
-      setMessages(prev => [...prev, { type: 'bot', content: response }]);
-    }, 1000);
+    document.addEventListener('keydown', handleKeyDown);
 
-    setInput('');
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [inputRef]);
+
+  const submitHandler: SubmitHandler<ChatInputs> = async (data) => {
+    const value = data.message.trim();
+    formRef.current?.reset();
+    if (!value) return;
+
+    // Add user message UI
+    setMessages((currentMessages) => [
+      ...currentMessages,
+      {
+        id: Date.now(),
+        role: 'user',
+        display: <UserMessage>{value}</UserMessage>,
+      },
+    ]);
+
+    try {
+      // Submit and get response message
+      const responseMessage = await sendMessage(value);
+      setMessages((currentMessages) => [...currentMessages, responseMessage]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Hàm reset chat
+  const handleNewChat = () => {
+    // Tạo key mới để reset toàn bộ chat
+    setChatKey(Date.now());
+    // Reset messages
+    setMessages([]);
   };
 
   return (
-    <section id="demo" className="py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold">Experience AI-Powered Transactions</h2>
-          <p className="text-muted-foreground">
-            Our advanced AI understands natural language, making crypto transfers as easy as chatting
-          </p>
-        </div>
-
-        <div className="mx-auto max-w-2xl">
-          <Card className="p-4 shadow-xl">
-            <div className="mb-4 h-[400px] overflow-y-auto space-y-4 p-4">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex items-start gap-3 ${message.type === 'user' ? 'flex-row-reverse' : ''
-                    }`}
-                >
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${message.type === 'user'
-                      ? 'bg-blue-600'
-                      : 'bg-emerald-600'
-                    }`}>
-                    {message.type === 'user'
-                      ? <User className="h-5 w-5 text-white" />
-                      : <Bot className="h-5 w-5 text-white" />
-                    }
-                  </div>
-                  <div className={`rounded-xl p-4 max-w-[80%] ${message.type === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-muted'
-                    }`}>
-                    <p className="whitespace-pre-line">{message.content}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex gap-2">
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Try: send 0.5 ETH to Alex"
-                className="rounded-xl"
-              />
-              <Button
-                onClick={handleSend}
-                className="rounded-xl bg-gradient-to-r from-blue-600 to-emerald-500"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </Card>
+    <main className="flex flex-col h-screen">
+      {/* Sử dụng key để reset toàn bộ chat */}
+      <div key={chatKey} className="pt-4 pb-20">
+        <div className="mx-auto px-4">
+          <ChatList messages={messages} />
+          <ChatScrollAnchor trackVisibility={true} />
         </div>
       </div>
-    </section>
+
+      <div className="w-full bg-gradient-to-t from-background via-background/90 to-background/50 pb-3 backdrop-blur-lg">
+        <div className="mx-auto max-w-3xl px-4">
+          <div className="relative rounded-xl border bg-card/50 p-2 shadow-lg ring-1 ring-black/5 dark:ring-white/10">
+            <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
+              <div className="relative flex items-center gap-2">
+                <TextareaAutosize
+                  tabIndex={0}
+                  onKeyDown={onKeyDown}
+                  placeholder="Type your message... (Press / to focus)"
+                  className="min-h-[48px] w-full resize-none rounded-lg bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 dark:bg-muted/50"
+                  autoFocus
+                  spellCheck={false}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  rows={1}
+                  {...form.register('message')}
+                />
+                <div className="flex items-center gap-2">
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={form.watch('message') === ''}
+                    className="h-8 w-8 shrink-0 rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 disabled:opacity-50"
+                  >
+                    <SendIcon className="h-4 w-4" />
+                    <span className="sr-only">Send message</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-8 w-8 shrink-0 rounded-lg hover:bg-muted/50"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNewChat();
+                    }}
+                  >
+                    <RefreshCwIcon className="h-4 w-4" />
+                    <span className="sr-only">New Chat</span>
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
