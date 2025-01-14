@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { UserMessage } from '@/components/llm-crypto/message';
 import { Button } from '@/components/ui/button';
@@ -7,7 +7,19 @@ import { useForm } from '@/hooks/use-form';
 import type { ChatInputs } from '@/lib/schemas/chat-schema';
 import type { AI } from '@/llm/actions';
 import { useActions, useUIState } from 'ai/rsc';
-import { ArrowDownIcon, PlusIcon, SendIcon, RefreshCwIcon, Sparkles, MessageSquare, Zap, Shield, Bot, ArrowRight, Rocket } from 'lucide-react';
+import {
+  ArrowDownIcon,
+  PlusIcon,
+  SendIcon,
+  RefreshCwIcon,
+  Sparkles,
+  MessageSquare,
+  Zap,
+  Shield,
+  Bot,
+  ArrowRight,
+  Rocket,
+} from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -25,7 +37,10 @@ export function DemoSection() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).nodeName)) {
+      if (
+        e.key === '/' &&
+        !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).nodeName)
+      ) {
         e.preventDefault();
         e.stopPropagation();
         inputRef.current?.focus();
@@ -79,7 +94,8 @@ export function DemoSection() {
             Experience DuckChain AI
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Try our AI assistant now and discover how it can revolutionize your crypto transactions
+            Try our AI assistant now and discover how it can revolutionize your
+            crypto transactions
           </p>
         </div>
 
@@ -94,7 +110,9 @@ export function DemoSection() {
                 Try It Yourself
               </div>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                Our AI understands natural language and can help you with everything from simple transactions to complex DuckChain operations.
+                Our AI understands natural language and can help you with
+                everything from simple transactions to complex DuckChain
+                operations.
               </p>
               <div className="flex flex-wrap gap-3">
                 <div className="inline-flex items-center gap-2 text-sm bg-primary/5 border border-primary/10 px-4 py-2 rounded-full hover:bg-primary/10 transition-colors">
@@ -119,9 +137,12 @@ export function DemoSection() {
                     <MessageSquare className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Natural Language Processing</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Natural Language Processing
+                    </h3>
                     <p className="text-muted-foreground">
-                      Communicate with our AI in plain English. No need to learn complex commands or syntax.
+                      Communicate with our AI in plain English. No need to learn
+                      complex commands or syntax.
                     </p>
                   </div>
                 </div>
@@ -133,9 +154,12 @@ export function DemoSection() {
                     <Zap className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Instant Responses</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Instant Responses
+                    </h3>
                     <p className="text-muted-foreground">
-                      Get immediate answers to your questions about DuckChain transactions and features.
+                      Get immediate answers to your questions about DuckChain
+                      transactions and features.
                     </p>
                   </div>
                 </div>
@@ -147,9 +171,12 @@ export function DemoSection() {
                     <Shield className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-2">Secure Interactions</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Secure Interactions
+                    </h3>
                     <p className="text-muted-foreground">
-                      All conversations are protected with enterprise-grade security and encryption.
+                      All conversations are protected with enterprise-grade
+                      security and encryption.
                     </p>
                   </div>
                 </div>
@@ -168,8 +195,12 @@ export function DemoSection() {
                       <Sparkles className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-base">DuckChain AI Assistant</h3>
-                      <p className="text-xs text-muted-foreground">Powered by advanced AI</p>
+                      <h3 className="font-semibold text-base">
+                        DuckChain AI Assistant
+                      </h3>
+                      <p className="text-xs text-muted-foreground">
+                        Powered by advanced AI
+                      </p>
                     </div>
                   </div>
                   <Button
@@ -193,11 +224,14 @@ export function DemoSection() {
 
                 {/* Input Area */}
                 <div className="border-t p-3 sm:p-4 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5">
-                  <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
+                  <form
+                    ref={formRef}
+                    onSubmit={form.handleSubmit(submitHandler)}
+                  >
                     <div className="relative flex items-center gap-2 sm:gap-3">
                       <TextareaAutosize
                         {...form.register('message')}
-                        ref={inputRef}
+                        // ref={inputRef}
                         tabIndex={0}
                         onKeyDown={onKeyDown}
                         placeholder="Message DuckChain AI..."
