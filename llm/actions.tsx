@@ -186,46 +186,114 @@ export async function sendMessage(message: string): Promise<{
         },
       },
       get_crypto_price: {
-        description:
-          'Get the current price of a given cryptocurrency. Use this to show the price to the user.',
+        description: 'Get the current price of a given cryptocurrency',
         parameters: z.object({
-          symbol: z
-            .string()
-            .describe(
-              'The name or symbol of the cryptocurrency. e.g. BTC/ETH/SOL.'
-            ),
+          symbol: z.string().describe('Cryptocurrency symbol'),
         }),
         generate: async function* ({ symbol }: { symbol: string }) {
+          // Yield loading state
           yield (
             <BotCard>
               <PriceSkeleton />
             </BotCard>
           );
 
-          const stats = await binance.get24hrChangeStatististics({
-            symbol: `${symbol}USDT`,
-          });
-          // get the last price
-          const price = Number(stats.lastPrice ?? 0);
-          // extract the delta
-          const delta = Number(stats.priceChange ?? 0);
+          try {
+            // Validate environment variables
+            if (!env.BINANCE_API_KEY || !env.BINANCE_API_SECRET) {
+              console.error('Missing Binance API credentials');
+              return (
+                <BotMessage>
+                  API configuration error. Please contact support.
+                </BotMessage>
+              );
+            }
 
-          await sleep(1000);
+            // Enhanced logging
+            console.log(`Fetching price for symbol: ${symbol}`);
+            console.log(
+              `Binance API Key (partial): ${env.BINANCE_API_KEY.slice(0, 5)}...`
+            );
 
-          history.done([
-            ...history.get(),
-            {
-              role: 'assistant',
-              name: 'get_crypto_price',
-              content: `[Price of ${symbol} = ${price}]`,
-            },
-          ]);
+            // Safe symbol transformation
+            const safeSymbol = symbol.toUpperCase().trim();
+            const validSymbols = ['BTC', 'ETH', 'BNB', 'SOL']; // Add supported symbols
 
-          return (
-            <BotCard>
-              <Price name={symbol} price={price} delta={delta} />
-            </BotCard>
-          );
+            // Symbol validation
+            if (!validSymbols.includes(safeSymbol)) {
+              return (
+                <BotMessage>
+                  Unsupported cryptocurrency. Supported:{' '}
+                  {validSymbols.join(', ')}
+                </BotMessage>
+              );
+            }
+
+            // Comprehensive error handling for Binance API
+            let stats;
+            try {
+              stats = await binance.get24hrChangeStatististics({
+                symbol: `${safeSymbol}USDT`,
+              });
+            } catch (apiError) {
+              console.error('Binance API Error:', apiError);
+
+              // Fallback mechanism
+              return (
+                <BotMessage>
+                  Unable to fetch price. API connection failed.
+                  {apiError instanceof Error ? apiError.message : ''}
+                </BotMessage>
+              );
+            }
+
+            // Robust data extraction with default values
+            const price = Number(stats?.lastPrice ?? 0);
+            const delta = Number(stats?.priceChange ?? 0);
+
+            // Extensive logging
+            console.log(`Fetched Price: ${price}`);
+            console.log(`Price Delta: ${delta}`);
+
+            // Validate price
+            if (price <= 0) {
+              return (
+                <BotMessage>
+                  Invalid price data received for {safeSymbol}
+                </BotMessage>
+              );
+            }
+
+            // Artificial delay for UX
+            await sleep(1000);
+
+            // Update AI history
+            history.done([
+              ...history.get(),
+              {
+                role: 'assistant',
+                name: 'get_crypto_price',
+                content: `[Price of ${safeSymbol} = ${price.toFixed(2)}]`,
+              },
+            ]);
+
+            // Return price component
+            return (
+              <BotCard>
+                <Price name={safeSymbol} price={price} delta={delta} />
+              </BotCard>
+            );
+          } catch (error) {
+            // Global error handler
+            console.error('Crypto Price Fetch Failed:', error);
+
+            return (
+              <BotMessage>
+                An unexpected error occurred.
+                {error instanceof Error ? error.message : 'Unknown error'}
+              </BotMessage>
+            );
+          }
         },
       },
       get_crypto_stats: {
