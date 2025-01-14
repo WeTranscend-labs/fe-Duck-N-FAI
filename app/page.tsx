@@ -52,7 +52,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_45%_at_50%_50%,rgba(255,218,0,0.1)_0%,rgba(255,255,255,0)_100%)]" />
         <HeroSection />
         <FeaturesSection />
-        <StatsSection />
+
         <TestimonialsSection />
         <DemoSection />
         <ContactSection />
