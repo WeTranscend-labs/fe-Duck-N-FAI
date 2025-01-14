@@ -196,7 +196,7 @@ export function DemoSection() {
                   <form ref={formRef} onSubmit={form.handleSubmit(submitHandler)}>
                     <div className="relative flex items-center gap-2 sm:gap-3">
                       <TextareaAutosize
-                        ref={inputRef}
+{/*                         ref={inputRef} */}
                         tabIndex={0}
                         onKeyDown={onKeyDown}
                         placeholder="Message DuckChain AI..."
