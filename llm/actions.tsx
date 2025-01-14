@@ -9,11 +9,13 @@ import { AutoConnectWallet } from '@/components/llm-wallet/AutoConnectWallet';
 import TokenTransferComponent from '@/components/llm-wallet/TokenTransferComponent';
 import { env } from '@/env.mjs';
 import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import type { CoreMessage, ToolInvocation } from 'ai';
 import { createAI, getMutableAIState, streamUI } from 'ai/rsc';
 import { MainClient } from 'binance';
 import { Loader2 } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { z } from 'zod';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -88,8 +90,10 @@ export async function sendMessage(message: string): Promise<{
     },
   ]);
 
+  const model = new GoogleGenerativeAI(env.GOOGLE_GENERATIVE_AI_API_KEY);
+
   const reply = await streamUI({
-    model: openai('gpt-4o-mini'),
+    model: google('gemini-1.5-flash'),
     messages: [
       {
         role: 'system',
