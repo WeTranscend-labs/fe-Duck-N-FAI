@@ -85,7 +85,7 @@ export function DemoSection() {
 
         <div className="grid gap-12 lg:grid-cols-2 items-start">
           {/* Left Side - Description */}
-          <div className="space-y-6 order-2 lg:order-1">
+          <div className="space-y-6 order-2 lg:order-1 rounded-2xl p-6 ">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-3 text-xl sm:text-2xl font-bold">
                 <div className="h-10 w-10 rounded-xl bg-primary/15 flex items-center justify-center">
@@ -113,7 +113,7 @@ export function DemoSection() {
             </div>
 
             <div className="grid gap-3">
-              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-gradient-to-br from-background to-muted/30 border-primary/10">
+              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-[linear-gradient(107.78deg,rgba(84,80,230,0.2)_-3.86%,rgba(165,165,174,0.0457021)_51.23%,rgba(170,170,170,0.036)_70.2%,rgba(77,73,255,0.096)_95.95%)] border-primary/10">
                 <div className="flex gap-3">
                   <div className="bg-primary/15 p-2.5 rounded-lg h-fit shrink-0">
                     <MessageSquare className="h-5 w-5 text-primary" />
@@ -127,7 +127,7 @@ export function DemoSection() {
                 </div>
               </Card>
 
-              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-gradient-to-br from-background to-muted/30 border-primary/10">
+              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-[linear-gradient(107.78deg,rgba(84,80,230,0.2)_-3.86%,rgba(165,165,174,0.0457021)_51.23%,rgba(170,170,170,0.036)_70.2%,rgba(77,73,255,0.096)_95.95%)] border-primary/10">
                 <div className="flex gap-3">
                   <div className="bg-primary/15 p-2.5 rounded-lg h-fit shrink-0">
                     <Zap className="h-5 w-5 text-primary" />
@@ -141,7 +141,7 @@ export function DemoSection() {
                 </div>
               </Card>
 
-              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-gradient-to-br from-background to-muted/30 border-primary/10">
+              <Card className="p-4 hover:shadow-md transition-all hover:scale-[1.01] bg-[linear-gradient(107.78deg,rgba(84,80,230,0.2)_-3.86%,rgba(165,165,174,0.0457021)_51.23%,rgba(170,170,170,0.036)_70.2%,rgba(77,73,255,0.096)_95.95%)] border-primary/10">
                 <div className="flex gap-3">
                   <div className="bg-primary/15 p-2.5 rounded-lg h-fit shrink-0">
                     <Shield className="h-5 w-5 text-primary" />
