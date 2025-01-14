@@ -5,7 +5,7 @@ import {
   RainbowKitProvider,
   darkTheme,
   lightTheme,
-  cssStringFromTheme
+  cssStringFromTheme,
 } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTheme } from 'next-themes';
@@ -57,6 +57,7 @@ export default function WalletProvider({ children }: Props) {
           theme={rainbowKitTheme}
           modalSize="wide"
           initialChain={network}
+          locale="en"
           showRecentTransactions={true}
           appInfo={{
             appName: 'DuckStrike',
