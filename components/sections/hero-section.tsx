@@ -98,7 +98,8 @@ export function HeroSection() {
               <Image
                 src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&q=80"
                 alt="DuckStrike Extension"
-                className="rounded-xl bg-background"
+                className="rounded-xl bg-background object-cover"
+                fill
               />
             </div>
           </div>

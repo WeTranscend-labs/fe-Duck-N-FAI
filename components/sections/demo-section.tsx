@@ -7,7 +7,7 @@ import { useForm } from '@/hooks/use-form';
 import type { ChatInputs } from '@/lib/schemas/chat-schema';
 import type { AI } from '@/llm/actions';
 import { useActions, useUIState } from 'ai/rsc';
-import { ArrowDownIcon, PlusIcon, SendIcon, RefreshCwIcon } from 'lucide-react';
+import { RefreshCwIcon, SendIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
 import TextareaAutosize from 'react-textarea-autosize';

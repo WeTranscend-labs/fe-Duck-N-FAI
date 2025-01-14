@@ -1,17 +1,13 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Moon, Sun, Zap, Menu, X } from 'lucide-react';
+import { Menu, Moon, Sun, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { GiDuck } from 'react-icons/gi';
 import { CustomConnectButton } from './wallet/CustomConnectButton';
 
-interface NavbarProps {
-  onNavigate: (section: string) => void;
-}
-
-export function Navbar({ onNavigate }: NavbarProps) {
+export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,8 +22,11 @@ export function Navbar({ onNavigate }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavigate = (section: string) => {
-    onNavigate(section);
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
     setIsMenuOpen(false);
   };
 
@@ -49,7 +48,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
             </div>
           </div>
           <button
-            onClick={() => handleNavigate('home')}
+            onClick={() => scrollToSection('home')}
             className="text-lg font-semibold hover:text-primary transition-colors"
           >
             DuckStrike
@@ -61,21 +60,21 @@ export function Navbar({ onNavigate }: NavbarProps) {
           <Button
             variant="ghost"
             className="text-sm font-medium"
-            onClick={() => handleNavigate('features')}
+            onClick={() => scrollToSection('features')}
           >
             Features
           </Button>
           <Button
             variant="ghost"
             className="text-sm font-medium"
-            onClick={() => handleNavigate('demo')}
+            onClick={() => scrollToSection('demo')}
           >
             Demo
           </Button>
           <Button
             variant="ghost"
             className="text-sm font-medium"
-            onClick={() => handleNavigate('stats')}
+            onClick={() => scrollToSection('stats')}
           >
             Stats
           </Button>
@@ -129,21 +128,21 @@ export function Navbar({ onNavigate }: NavbarProps) {
             <Button
               variant="ghost"
               className="w-full text-left justify-start text-sm font-medium"
-              onClick={() => handleNavigate('features')}
+              onClick={() => scrollToSection('features')}
             >
               Features
             </Button>
             <Button
               variant="ghost"
               className="w-full text-left justify-start text-sm font-medium"
-              onClick={() => handleNavigate('demo')}
+              onClick={() => scrollToSection('demo')}
             >
               Demo
             </Button>
             <Button
               variant="ghost"
               className="w-full text-left justify-start text-sm font-medium"
-              onClick={() => handleNavigate('stats')}
+              onClick={() => scrollToSection('stats')}
             >
               Stats
             </Button>

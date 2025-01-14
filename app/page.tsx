@@ -1,5 +1,3 @@
-'use client';
-
 import { Navbar } from '@/components/navbar';
 import { HeroSection } from '@/components/sections/hero-section';
 import { FeaturesSection } from '@/components/sections/features-section';
@@ -9,15 +7,16 @@ import { ContactSection } from '@/components/sections/contact-section';
 
 export default function Home() {
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // const element = document.getElementById(id);
+    // if (element) {
+    //   element.scrollIntoView({ behavior: 'smooth' });
+    // }
+    console.log(id);
   };
 
   return (
     <>
-      <Navbar onNavigate={scrollToSection} />
+      <Navbar />
       <main className="min-h-screen bg-background">
         <HeroSection />
         <FeaturesSection />
