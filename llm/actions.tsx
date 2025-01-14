@@ -206,9 +206,9 @@ export async function sendMessage(message: string): Promise<{
             symbol: `${symbol}USDT`,
           });
           // get the last price
-          const price = Number(stats.lastPrice);
+          const price = Number(stats.lastPrice ?? 0);
           // extract the delta
-          const delta = Number(stats.priceChange);
+          const delta = Number(stats.priceChange ?? 0);
 
           await sleep(1000);
 
@@ -234,9 +234,7 @@ export async function sendMessage(message: string): Promise<{
         parameters: z.object({
           slug: z
             .string()
-            .describe(
-              'The full name of the cryptocurrency in lowercase. e.g. bitcoin/ethereum/solana.'
-            ),
+            .describe('The full name of the cryptocurrency in lowercase.'),
         }),
         generate: async function* ({ slug }: { slug: string }) {
           yield (
