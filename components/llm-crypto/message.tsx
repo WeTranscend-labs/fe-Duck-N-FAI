@@ -1,39 +1,31 @@
-'use client';
+"use client";
 
 import { cn } from '@/lib/utils';
 import { Sparkle, UserIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { motion } from 'framer-motion';
 
 export function UserMessage({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
   return (
-    <div className="group relative flex items-start justify-end md:-mr-12">
-      <div className="flex-1 space-y-2 overflow-hidden px-1 max-w-[calc(100%-4rem)] ml-auto text-right">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className={cn(
-            'inline-block rounded-lg p-2 shadow-md ml-auto',
-            theme === 'dark'
-              ? 'bg-blue-800 text-blue-100'
-              : 'bg-blue-500 text-white'
-          )}
-        >
-          {children}
-        </motion.div>
-      </div>
-      <div
-        className={cn(
-          'flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full border ml-2',
+    <div className="flex items-start justify-end gap-2">
+      <div className="max-w-[85%]">
+        <div className={cn(
+          'inline-block rounded-2xl px-3 py-2 text-sm',
           theme === 'dark'
-            ? 'border-blue-700 bg-blue-900/30 text-blue-400'
-            : 'border-blue-500 bg-blue-100 text-blue-600'
-        )}
-      >
-        <UserIcon />
+            ? 'bg-primary/15 text-foreground'
+            : 'bg-primary/10 text-foreground'
+        )}>
+          {children}
+        </div>
+      </div>
+      <div className={cn(
+        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
+        theme === 'dark'
+          ? 'bg-primary/10 text-primary'
+          : 'bg-primary/5 text-primary'
+      )}>
+        <UserIcon className="h-3.5 w-3.5" />
       </div>
     </div>
   );
@@ -41,22 +33,10 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
 
 function TypingIndicator() {
   return (
-    <div className="flex space-x-1.5 p-2">
-      <motion.span
-        className="h-2 w-2 rounded-full bg-current opacity-60"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.2 }}
-      />
-      <motion.span
-        className="h-2 w-2 rounded-full bg-current opacity-60"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.4 }}
-      />
-      <motion.span
-        className="h-2 w-2 rounded-full bg-current opacity-60"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 0.6 }}
-      />
+    <div className="flex items-center gap-1 px-1">
+      <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
+      <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
+      <div className="h-1.5 w-1.5 rounded-full bg-primary/40" />
     </div>
   );
 }
@@ -73,35 +53,25 @@ export function BotMessage({
   const { theme } = useTheme();
 
   return (
-    <div className={cn('group relative flex items-start md:-ml-12', className)}>
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className={cn(
-          'flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full border mr-2',
+    <div className={cn('flex items-start gap-2', className)}>
+      <div className={cn(
+        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
+        theme === 'dark'
+          ? 'bg-primary/10 text-primary'
+          : 'bg-primary/5 text-primary'
+      )}>
+        <Sparkle className="h-3.5 w-3.5" />
+      </div>
+      <div className="max-w-[85%]">
+        <div className={cn(
+          'inline-block rounded-2xl px-3 py-2 text-sm',
           theme === 'dark'
-            ? 'border-green-700 bg-green-900/30 text-green-400'
-            : 'border-green-500 bg-green-100 text-green-600'
-        )}
-      >
-        <Sparkle className="animate-pulse" />
-      </motion.div>
-      <div className="flex-1 space-y-2 overflow-hidden px-1 max-w-[calc(100%-4rem)] mr-auto text-left">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className={cn(
-            'inline-block rounded-lg shadow-md mr-auto',
-            theme === 'dark'
-              ? 'bg-zinc-800 border border-zinc-700 text-zinc-200'
-              : 'bg-white border border-gray-300 text-gray-800',
-            isLoading ? 'min-w-[60px]' : 'p-2'
-          )}
-        >
+            ? 'bg-muted/50 text-foreground'
+            : 'bg-muted/30 text-foreground',
+          isLoading && 'min-w-[60px]'
+        )}>
           {isLoading ? <TypingIndicator /> : children}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -117,40 +87,28 @@ export function BotCard({
   const { theme } = useTheme();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="group relative flex items-start md:-ml-12"
-    >
+    <div className="flex items-start gap-2">
       {showAvatar && (
-        <div
-          className={cn(
-            'flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-full border',
-            theme === 'dark'
-              ? 'border-green-700 bg-green-900/30 text-green-400'
-              : 'border-green-500 bg-green-100 text-green-600'
-          )}
-        >
-          <Sparkle className="animate-pulse" />
+        <div className={cn(
+          'flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
+          theme === 'dark'
+            ? 'bg-primary/10 text-primary'
+            : 'bg-primary/5 text-primary'
+        )}>
+          <Sparkle className="h-3.5 w-3.5" />
         </div>
       )}
-      <div className="flex-1 space-y-2 overflow-hidden px-1 ml-4 mr-auto">
-        <motion.div
-          initial={{ scale: 0.95 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className={cn(
-            'rounded-lg p-2 shadow-md max-w-full',
-            theme === 'dark'
-              ? 'bg-zinc-800 border border-zinc-700 text-zinc-200'
-              : 'bg-white border border-gray-300 text-gray-800'
-          )}
-        >
+      <div className="max-w-[85%]">
+        <div className={cn(
+          'rounded-2xl px-3 py-2 text-sm',
+          theme === 'dark'
+            ? 'bg-muted/50 text-foreground border border-border/10'
+            : 'bg-muted/30 text-foreground border border-border/5'
+        )}>
           {children}
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -158,22 +116,15 @@ export function AssistantMessage({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="mt-2 flex items-center justify-center gap-2 text-xs text-gray-500"
-    >
-      <div
-        className={cn(
-          'max-w-[600px] flex-initial px-2 py-2 rounded-lg shadow-sm',
-          theme === 'dark'
-            ? 'bg-zinc-800 text-zinc-300'
-            : 'bg-gray-100 text-gray-600'
-        )}
-      >
+    <div className="flex items-center justify-center">
+      <div className={cn(
+        'max-w-[85%] px-3 py-2 text-xs rounded-xl',
+        theme === 'dark'
+          ? 'bg-muted/30 text-muted-foreground'
+          : 'bg-muted/20 text-muted-foreground'
+      )}>
         {children}
       </div>
-    </motion.div>
+    </div>
   );
 }

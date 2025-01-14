@@ -5,6 +5,7 @@ import {
   RainbowKitProvider,
   darkTheme,
   lightTheme,
+  cssStringFromTheme
 } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useTheme } from 'next-themes';
@@ -21,43 +22,47 @@ type Props = {
 export default function WalletProvider({ children }: Props) {
   const [mounted, setMounted] = React.useState(false);
   const { theme } = useTheme();
-  const [rainbowKitTheme, setRainbowKitTheme] = useState(
-    darkTheme({
-      accentColor: '#ff8800',
-      accentColorForeground: 'white',
-      borderRadius: 'none',
-    })
-  );
+
+  // Custom theme configurations
+  const customDarkTheme = darkTheme({
+    accentColor: '#ffda00',
+    accentColorForeground: '#000000',
+    borderRadius: 'large',
+    fontStack: 'system',
+    overlayBlur: 'small',
+  });
+
+  const customLightTheme = lightTheme({
+    accentColor: '#ffda00',
+    accentColorForeground: '#000000',
+    borderRadius: 'large',
+    fontStack: 'system',
+    overlayBlur: 'small',
+  });
+
+  const [rainbowKitTheme, setRainbowKitTheme] = useState(customDarkTheme);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useEffect(() => {
-    const newTheme =
-      theme === 'dark'
-        ? darkTheme({
-            accentColor: '#ff8800',
-            accentColorForeground: 'white',
-            borderRadius: 'none',
-          })
-        : lightTheme({
-            accentColor: '#ff8800',
-            accentColorForeground: 'white',
-            borderRadius: 'none',
-          });
-
-    setRainbowKitTheme(newTheme);
+    setRainbowKitTheme(theme === 'dark' ? customDarkTheme : customLightTheme);
   }, [theme]);
 
   return (
     <WagmiProvider config={walletConfig}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
+          theme={rainbowKitTheme}
+          modalSize="wide"
           initialChain={network}
           showRecentTransactions={true}
-          theme={rainbowKitTheme}
-          locale="en-US"
+          appInfo={{
+            appName: 'DuckStrike',
+            learnMoreUrl: 'https://duckchain.io',
+          }}
+          coolMode
         >
           {mounted && children}
         </RainbowKitProvider>
