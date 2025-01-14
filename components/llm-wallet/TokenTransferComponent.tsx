@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckCircle2, Loader2, XCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
-import { CheckCircle2, XCircle, Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 type TransactionStatus = 'idle' | 'preparing' | 'sending' | 'success' | 'error';
 
@@ -57,7 +57,7 @@ const TokenTransferComponent = ({
     };
 
     initiateTransfer();
-  }, [amount, toAddress, sendTransaction]);
+  }, [amount, toAddress, sendTransaction, hash]);
 
   useEffect(() => {
     if (isConfirmed) {
