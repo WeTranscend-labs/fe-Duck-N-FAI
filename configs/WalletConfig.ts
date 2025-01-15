@@ -1,8 +1,23 @@
 import { getDefaultConfig, getDefaultWallets } from '@rainbow-me/rainbowkit';
 import { ledgerWallet, trustWallet } from '@rainbow-me/rainbowkit/wallets';
+import { defineChain } from 'viem';
 import { http } from 'wagmi';
-import { kairos as network } from 'viem/chains';
-import { env } from '@/env.mjs';
+
+const DuckChain = defineChain({
+  id: 202105,
+  name: 'DuckChain Testnet',
+  nativeCurrency: {
+    name: 'Dev',
+    symbol: 'TON',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://testnet-rpc.duckchain.io'],
+    },
+  },
+  testnet: true,
+});
 
 const { wallets } = getDefaultWallets();
 
@@ -16,12 +31,12 @@ const walletConfig = getDefaultConfig({
       wallets: [trustWallet, ledgerWallet],
     },
   ],
-  chains: [network],
+  chains: [DuckChain],
   transports: {
-    [network.id]: http(''),
+    [DuckChain.id]: http(),
   },
   ssr: true,
 });
 
 export default walletConfig;
-export { network };
+export { DuckChain as network };
