@@ -1,8 +1,4 @@
-Duck’N’FAI
-
-# DuckStrike - Frontend
-
-Duck’N’FAI
+# Duck’N’FAI - Frontend
 
 ## Project Overview
 
@@ -21,7 +17,7 @@ DuDuck’N’FAIs an innovative platform that integrates blockchain technology a
 1. Clone the repository:
    ```bash
    git clone https://github.com/WeTranscend-labs/fe-duck-strike.git
-   cd fe-duckstrike
+   cd fe-Duck-N-FAI
    ```
 2. Install dependencies:
    ```bash
@@ -64,7 +60,7 @@ The DuckStrike frontend leverages a variety of modern technologies to provide a 
 
 - **CoinMarketCap API**: Used for fetching real-time cryptocurrency market data, such as current prices, volume, and market trends.
 
-These technologies work together to provide a secure, user-friendly, and scalable frontend for DuckStrike, integrating both blockchain and AI for enhanced functionality.
+These technologies work together to provide a secure, user-friendly, and scalable frontend for Duck’N’FAI, integrating both blockchain and AI for enhanced functionality.
 
 ## Project Structure
 
@@ -83,7 +79,7 @@ These technologies work together to provide a secure, user-friendly, and scalabl
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to DuckStrike, please fork the repository, make your changes, and submit a pull request. We appreciate your help!
+Contributions are welcome! If you'd like to contribute to Duck’N’FAI, please fork the repository, make your changes, and submit a pull request. We appreciate your help!
 
 ## License
 
