@@ -55,7 +55,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
             onClick={() => handleNavigate('home')}
             className="text-lg font-semibold hover:text-primary transition-colors"
           >
-            DuckStrike
+            Duck’N’FAI
           </button>
         </div>
 

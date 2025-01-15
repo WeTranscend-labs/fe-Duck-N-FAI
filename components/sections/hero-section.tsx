@@ -93,7 +93,7 @@ export function HeroSection() {
                   backgroundPosition: '0% 100%',
                 }}
               >
-                DuckStrike Transactions
+                Duck’N’FAI Transactions
               </motion.span>
             </motion.h1>
 
@@ -104,8 +104,8 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               Revolutionize your crypto experience with our AI-powered
-              DuckStrike extension. Simple commands, powerful results - all on
-              the secure DuckStrike network.
+              Duck’N’FAI extension. Simple commands, powerful results - all on
+              the secure Duck’N’FAI network.
             </motion.p>
 
             {/* Quick Benefits */}
@@ -117,7 +117,7 @@ export function HeroSection() {
             >
               <div className="flex items-center justify-center space-x-2 text-muted-foreground">
                 <GiDuck className="h-5 w-5 text-primary" />
-                <span>DuckStrike Security</span>
+                <span>Duck’N’FAI Security</span>
               </div>
               <div className="flex items-center justify-center space-x-2 text-muted-foreground">
                 <GiDuck className="h-5 w-5 text-primary" />
@@ -135,15 +135,16 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
+
               <Link href={'/chat'}>
                 <Button
                   size="lg"
                   className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  Launch DuckStrike <ArrowRight className="ml-2 h-4 w-4" />
-
+                  Launch Duck’N’FAI <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
+
               <Button
                 size="lg"
                 variant="outline"
@@ -165,17 +166,17 @@ export function HeroSection() {
                   Natural Commands
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  "Send 0.5 DUCK to Alex" - it's that simple on DuckStrike's
+                  "Send 0.5 DUCK to Alex" - it's that simple on Duck’N’FAI's
                   intuitive platform.
                 </p>
               </Card>
               <Card className="p-6 text-left border-primary/20 hover:border-primary/40 transition-all hover:scale-[1.02] bg-background/50 backdrop-blur-sm">
                 <h3 className="mb-2 font-semibold text-primary">
-                  DuckStrike Analysis
+                  Duck’N’FAI Analysis
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   AI-powered system optimizes your transactions on the
-                  DuckStrike network.
+                  Duck’N’FAI network.
                 </p>
               </Card>
               <Card className="hidden p-6 text-left lg:block border-primary/20 hover:border-primary/40 transition-all hover:scale-[1.02] bg-background/50 backdrop-blur-sm">
@@ -183,7 +184,7 @@ export function HeroSection() {
                   Chain Support
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Native DuckStrike support with cross-chain capabilities.
+                  Native Duck’N’FAI support with cross-chain capabilities.
                 </p>
               </Card>
             </motion.div>
@@ -197,13 +198,12 @@ export function HeroSection() {
             >
               <div className="absolute -left-4 -right-4 -top-4 -z-10 h-[120%] bg-primary/10 blur-3xl" />
               <div className="overflow-hidden rounded-2xl bg-primary p-1 shadow-2xl">
-                <Image
-                  src={duckImage}
-                  alt="DuckStrike Extension"
-                  className="rounded-xl bg-background object-cover"
-                  width={0}
-                  height={0}
-                  layout="responsive"
+
+                <img
+                  src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&q=80"
+                  alt="Duck’N’FAI Extension"
+                  className="rounded-xl bg-background"
+
                 />
               </div>
             </motion.div>
@@ -216,7 +216,7 @@ export function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}
             >
-              <div>🔒 DuckStrike Secured</div>
+              <div>🔒 Duck’N’FAI Secured</div>
               <div>⚡ Growing Community</div>
               <div>💎 Native DUCK Support</div>
               <div>⭐ Top-rated Extension</div>

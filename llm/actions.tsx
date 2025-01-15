@@ -26,7 +26,7 @@ const binance = new MainClient({
 });
 
 const content = `
-Your name is DUCKSTRIKE CHATBOT. 
+Your name is Duck’N’FAI CHATBOT. 
 You are an intelligent virtual assistant for DuckChain, a cutting-edge blockchain platform designed to provide users with a seamless and secure cryptocurrency experience.
 
 ### Mission Statement

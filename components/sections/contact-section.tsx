@@ -16,7 +16,7 @@ export function ContactSection() {
               <h2 className="text-3xl font-bold mb-4">Join Our Community</h2>
               <p className="text-muted-foreground mb-8">
                 Connect with us across our Web3 ecosystem and stay updated with
-                the latest DuckStrike developments.
+                the latest Duck’N’FAI developments.
               </p>
             </div>
 
@@ -24,7 +24,7 @@ export function ContactSection() {
               <Button
                 variant="outline"
                 className="w-full rounded-xl border-primary/20 hover:border-primary hover:bg-primary/10"
-                onClick={() => window.open('https://t.me/duckstrike', '_blank')}
+                onClick={() => window.open('https://t.me/Duck’N’FAI', '_blank')}
               >
                 <FaTelegram className="mr-2 h-5 w-5 text-primary" />
                 Telegram
@@ -33,7 +33,7 @@ export function ContactSection() {
                 variant="outline"
                 className="w-full rounded-xl border-primary/20 hover:border-primary hover:bg-primary/10"
                 onClick={() =>
-                  window.open('https://x.com/duckstrike', '_blank')
+                  window.open('https://x.com/Duck’N’FAI', '_blank')
                 }
               >
                 <FaXTwitter className="mr-2 h-5 w-5 text-primary" />X
@@ -42,7 +42,7 @@ export function ContactSection() {
                 variant="outline"
                 className="w-full rounded-xl border-primary/20 hover:border-primary hover:bg-primary/10"
                 onClick={() =>
-                  window.open('https://youtube.com/@duckstrike', '_blank')
+                  window.open('https://youtube.com/@Duck’N’FAI', '_blank')
                 }
               >
                 <FaYoutube className="mr-2 h-5 w-5 text-primary" />

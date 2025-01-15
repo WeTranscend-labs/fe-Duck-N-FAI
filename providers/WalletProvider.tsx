@@ -60,7 +60,7 @@ export default function WalletProvider({ children }: Props) {
           locale="en"
           showRecentTransactions={true}
           appInfo={{
-            appName: 'DuckStrike',
+            appName: 'Duck’N’FAI',
             learnMoreUrl: 'https://duckchain.io',
           }}
           coolMode
