@@ -4,9 +4,6 @@
 ## Project Overview
 DuckStrike is an innovative platform that integrates blockchain technology and artificial intelligence (AI) to provide seamless cryptocurrency management and interactions. The platform allows users to manage their crypto wallets, perform transactions, get real-time market insights, and leverage AI for personalized assistance.
 
-## Deployment
-To deploy this project locally, you can use the following steps to set up the environment and launch the application.
-
 ## Getting Started
 
 ### Prerequisites
