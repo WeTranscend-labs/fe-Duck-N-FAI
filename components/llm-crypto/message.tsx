@@ -10,7 +10,7 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
   return (
-    <div className="flex items-start justify-end gap-3">
+    <div className="flex items-center justify-end gap-3">
       <div className="max-w-[85%]">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -73,7 +73,7 @@ export function BotMessage({
   const { theme } = useTheme();
 
   return (
-    <div className={cn('flex items-start gap-3', className)}>
+    <div className={cn('flex items-center gap-3', className)}>
       <div
         className={cn(
           'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',

@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import logo from '@/public/imgs/logo.webp';
 import Logo from './common/Logo';
+import Link from 'next/link';
 
 interface NavbarProps {
   onNavigate: (section: string) => void;
@@ -39,11 +40,10 @@ export function Navbar({ onNavigate }: NavbarProps) {
 
   return (
     <motion.nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-lg'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
+        ? 'bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-lg'
+        : 'bg-transparent'
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
@@ -62,6 +62,14 @@ export function Navbar({ onNavigate }: NavbarProps) {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-4">
           <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              className="w-full text-left justify-start text-sm font-medium hover:bg-primary/10"
+              onClick={() => handleNavigate('features')}
+            >
+              <Link href={'/chat'} >    Chat</Link>
+
+            </Button>
             <Button
               variant="ghost"
               className="text-sm font-medium hover:bg-primary/10"
@@ -102,6 +110,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
 
         {/* Mobile Menu Button */}
         <div className="flex items-center space-x-2 md:hidden">
+
           <Button
             variant="ghost"
             size="icon"
@@ -139,6 +148,14 @@ export function Navbar({ onNavigate }: NavbarProps) {
             transition={{ duration: 0.2 }}
           >
             <div className="px-4 py-3 space-y-2 bg-background/80 backdrop-blur-md border-t border-primary/10">
+              <Button
+                variant="ghost"
+                className="w-full text-left justify-start text-sm font-medium hover:bg-primary/10"
+                onClick={() => handleNavigate('features')}
+              >
+                <Link href={'/chat'} >    Chat</Link>
+
+              </Button>
               <Button
                 variant="ghost"
                 className="w-full text-left justify-start text-sm font-medium hover:bg-primary/10"
