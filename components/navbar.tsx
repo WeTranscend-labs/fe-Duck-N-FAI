@@ -39,11 +39,10 @@ export function Navbar({ onNavigate }: NavbarProps) {
 
   return (
     <motion.nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled
           ? 'bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-lg'
           : 'bg-transparent'
-      }`}
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
