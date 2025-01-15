@@ -1,5 +1,6 @@
 # Duck’N’FAI - Frontend
 
+
 ## Project Overview
 
 DuDuck’N’FAIs an innovative platform that integrates blockchain technology and artificial intelligence (AI) to provide seamless cryptocurrency management and interactions. The platform allows users to manage their crypto wallets, perform transactions, get real-time market insights, and leverage AI for personalized assistance.
