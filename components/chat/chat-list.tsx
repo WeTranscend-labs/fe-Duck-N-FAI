@@ -60,7 +60,7 @@ export function ChatList({ messages }: { messages: UIState[number][] }) {
       {messages.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center space-y-4 max-w-sm mx-auto px-4">
-            <div className="bg-primary/10 p-3 rounded-xl inline-flex">
+            <div className="bg-primary/10 p-3 rounded-xl inline-flex mx-auto">
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-lg font-semibold">Welcome to DuckChain AI</h3>
@@ -73,22 +73,24 @@ export function ChatList({ messages }: { messages: UIState[number][] }) {
 
       <div
         ref={chatContainerRef}
-        className="h-full overflow-y-auto px-4 py-4 space-y-6 scrollbar-thin scrollbar-thumb-primary/10 hover:scrollbar-thumb-primary/20 scrollbar-track-transparent"
+        className="h-full overflow-y-auto px-4 md:px-0"
       >
-        <AnimatePresence mode="popLayout">
-          {messages.map((message, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="relative transition-all duration-200 hover:translate-x-0.5 break-words"
-            >
-              {message.display}
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        <div className="px-6 mx-auto space-y-2 py-4">
+          <AnimatePresence mode="popLayout">
+            {messages.map((message, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="relative transition-all duration-200 hover:translate-x-0.5 break-words"
+              >
+                {message.display}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
       </div>
 
       <AnimatePresence>
