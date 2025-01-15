@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
 import { cn } from '@/lib/utils';
 import { Sparkle, UserIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
+import Logo from '../common/Logo';
 
 export function UserMessage({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
@@ -24,12 +25,14 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
           {children}
         </motion.div>
       </div>
-      <div className={cn(
-        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
-        theme === 'dark'
-          ? 'bg-primary/10 text-primary'
-          : 'bg-primary/5 text-primary'
-      )}>
+      <div
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+          theme === 'dark'
+            ? 'bg-primary/10 text-primary'
+            : 'bg-primary/5 text-primary'
+        )}
+      >
         <UserIcon className="h-4 w-4" />
       </div>
     </div>
@@ -71,13 +74,15 @@ export function BotMessage({
 
   return (
     <div className={cn('flex items-start gap-3', className)}>
-      <div className={cn(
-        'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
-        theme === 'dark'
-          ? 'bg-primary/10 text-primary'
-          : 'bg-primary/5 text-primary'
-      )}>
-        <Sparkle className="h-4 w-4" />
+      <div
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+          theme === 'dark'
+            ? 'bg-primary/10 text-primary'
+            : 'bg-primary/5 text-primary'
+        )}
+      >
+        <Logo className="h-full w-full" />
       </div>
       <div className="max-w-[85%]">
         <motion.div
@@ -110,12 +115,14 @@ export function BotCard({
   return (
     <div className="flex items-start gap-3">
       {showAvatar && (
-        <div className={cn(
-          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
-          theme === 'dark'
-            ? 'bg-primary/10 text-primary'
-            : 'bg-primary/5 text-primary'
-        )}>
+        <div
+          className={cn(
+            'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+            theme === 'dark'
+              ? 'bg-primary/10 text-primary'
+              : 'bg-primary/5 text-primary'
+          )}
+        >
           <Sparkle className="h-4 w-4" />
         </div>
       )}

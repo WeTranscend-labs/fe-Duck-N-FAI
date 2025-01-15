@@ -6,6 +6,7 @@ import { AI } from '@/llm/actions';
 import WalletProvider from '@/providers/WalletProvider';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import '@rainbow-me/rainbowkit/styles.css';
+import logo from '@/public/imgs/logo.webp';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,7 +16,11 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'DuckStrike - Smart Crypto Transaction Extension',
-  description: 'Manage your crypto transactions with ease using DuckStrike Chrome extension',
+  description:
+    'Manage your crypto transactions with ease using DuckStrike Chrome extension',
+  icons: {
+    icon: '/images/logo.webp',
+  },
 };
 
 export default function RootLayout({
