@@ -19,10 +19,11 @@ export const FloatingNav = ({
   const { theme, setTheme } = useTheme();
 
   const navItems = [
+    { name: "Chat", section: "chat", href: "/chat" },
     { name: "Features", section: "features" },
     { name: "Demo", section: "demo" },
     { name: "Stats", section: "stats" },
-    { name: "Chat", section: "chat", href: "/chat" },
+
   ];
 
   const handleNavigation = (item: { section: string; href?: string }) => {
