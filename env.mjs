@@ -8,7 +8,7 @@ export const env = createEnv({
     BINANCE_API_SECRET: z.string(),
     CMC_API_KEY: z.string(),
     GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
-    NEXTWORK_URL: z.string(),
+
   },
   client: {},
   runtimeEnv: {
@@ -17,6 +17,6 @@ export const env = createEnv({
     BINANCE_API_SECRET: process.env.BINANCE_API_SECRET,
     CMC_API_KEY: process.env.CMC_API_KEY,
     GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    NEXTWORK_URL: process.env.NEXTWORK_URL,
+
   },
 });
