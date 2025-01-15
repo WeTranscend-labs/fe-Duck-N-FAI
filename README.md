@@ -3,7 +3,7 @@
 
 ## Project Overview
 
-DuDuck’N’FAIs an innovative platform that integrates blockchain technology and artificial intelligence (AI) to provide seamless cryptocurrency management and interactions. The platform allows users to manage their crypto wallets, perform transactions, get real-time market insights, and leverage AI for personalized assistance.
+DuDuck’N’FAI is an innovative platform that integrates blockchain technology and artificial intelligence (AI) to provide seamless cryptocurrency management and interactions. The platform allows users to manage their crypto wallets, perform transactions, get real-time market insights, and leverage AI for personalized assistance.
 
 ## Getting Started
 
@@ -17,7 +17,7 @@ DuDuck’N’FAIs an innovative platform that integrates blockchain technology a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/WeTranscend-labs/fe-duck-strike.git
+   git clone https://github.com/WeTranscend-labs/fe-Duck-N-FAI.git
    cd fe-Duck-N-FAI
    ```
 2. Install dependencies:
@@ -42,7 +42,7 @@ DuDuck’N’FAIs an innovative platform that integrates blockchain technology a
 
 ## Technologies Used
 
-The DuckStrike frontend leverages a variety of modern technologies to provide a seamless, efficient, and secure user experience. Below are the key technologies and libraries used in this project:
+The Duck’N’FAI frontend leverages a variety of modern technologies to provide a seamless, efficient, and secure user experience. Below are the key technologies and libraries used in this project:
 
 - **Next.js**: A React framework for building fast, scalable, and optimized web applications. It powers the server-side rendering (SSR) and static site generation (SSG) for improved performance.
 - **React**: A JavaScript library for building user interfaces. React provides the core functionality for rendering UI components and managing application state.
