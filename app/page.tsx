@@ -11,6 +11,7 @@ import { TestimonialsSection } from "@/components/sections/testimonials-section"
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useEffect, useState } from "react";
+import { RoadmapSection } from "@/components/sections/roadmap-section";
 
 export default function Home() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -52,7 +53,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_45%_at_50%_50%,rgba(255,218,0,0.1)_0%,rgba(255,255,255,0)_100%)]" />
         <HeroSection />
         <FeaturesSection />
-
+        <RoadmapSection />
         <TestimonialsSection />
         <DemoSection />
         <ContactSection />
