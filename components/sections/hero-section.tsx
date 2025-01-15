@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
 import { ScrollToTop } from '../scroll-top';
+import duckImage from '@/public/imgs/duck-hero-section.webp';
 
 import duckImage from '@/public/imgs/duck-hero-section.webp';
 import Image from 'next/image';
@@ -199,11 +200,13 @@ export function HeroSection() {
               <div className="absolute -left-4 -right-4 -top-4 -z-10 h-[120%] bg-primary/10 blur-3xl" />
               <div className="overflow-hidden rounded-2xl bg-primary p-1 shadow-2xl">
 
-                <img
-                  src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&q=80"
-                  alt="Duck’N’FAI Extension"
-                  className="rounded-xl bg-background"
-
+ <Image
+                  src={duckImage}
+                  alt="DuckStrike Extension"
+                  className="rounded-xl bg-background object-cover"
+                  width={0}
+                  height={0}
+                  layout="responsive"
                 />
               </div>
             </motion.div>
