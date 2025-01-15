@@ -8,6 +8,9 @@ import { cn } from '@/lib/utils';
 import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
 import { ScrollToTop } from '../scroll-top';
 
+import duckImage from '@/public/imgs/duck-hero-section.webp';
+import Image from 'next/image';
+import Link from 'next/link';
 const HeroHighlight = ({
   children,
   className,
@@ -132,12 +135,15 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Button
-                size="lg"
-                className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                Launch DuckStrike <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link href={'/chat'}>
+                <Button
+                  size="lg"
+                  className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  Launch DuckStrike <ArrowRight className="ml-2 h-4 w-4" />
+
+                </Button>
+              </Link>
               <Button
                 size="lg"
                 variant="outline"
@@ -184,20 +190,24 @@ export function HeroSection() {
 
             {/* Extension Preview */}
             <motion.div
-              className="relative mx-auto max-w-3xl mb-16"
+              className="relative mx-auto w-full max-w-[500px] px-4 mb-16"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
               <div className="absolute -left-4 -right-4 -top-4 -z-10 h-[120%] bg-primary/10 blur-3xl" />
               <div className="overflow-hidden rounded-2xl bg-primary p-1 shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1642104704074-907c0698cbd9?auto=format&fit=crop&q=80"
+                <Image
+                  src={duckImage}
                   alt="DuckStrike Extension"
-                  className="rounded-xl bg-background"
+                  className="rounded-xl bg-background object-cover"
+                  width={0}
+                  height={0}
+                  layout="responsive"
                 />
               </div>
             </motion.div>
+
 
             {/* Trust Indicators */}
             <motion.div
