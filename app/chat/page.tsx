@@ -361,10 +361,10 @@ export default function ChatPage() {
                                 >
                                     <TextareaAutosize
                                         tabIndex={0}
-                                        ref={inputRef}
                                         onKeyDown={onKeyDown}
                                         placeholder="Message DuckChain AI..."
                                         className="min-h-[48px] w-full resize-none rounded-xl bg-background/80 px-3 sm:px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50 border border-primary/20 placeholder:text-muted-foreground/70"
+                                        autoFocus
                                         spellCheck={false}
                                         autoComplete="off"
                                         autoCorrect="off"
