@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description:
     'Manage your crypto transactions with ease using Duck’N’FAI Chrome extension',
   icons: {
-    icon: '/images/logo.webp',
+    icon: '/imgs/logo.webp',
   },
 };
 
