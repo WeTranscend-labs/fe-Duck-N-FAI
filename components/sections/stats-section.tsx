@@ -6,10 +6,10 @@ export function StatsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold mb-4 text-foreground">
-            DuckStrike Community
+            Duck’N’FAI Community
           </h2>
           <p className="text-muted-foreground">
-            Join the early adopters of DuckStrike&apos;s revolutionary
+            Join the early adopters of Duck’N’FAI&apos;s revolutionary
             transaction platform
           </p>
         </div>
@@ -19,7 +19,7 @@ export function StatsSection() {
             <div className="absolute inset-0 bg-muted rounded-lg transform transition-transform group-hover:scale-105" />
             <div className="relative p-8 text-center">
               <div className="text-4xl font-bold text-primary mb-2">$50K+</div>
-              <div className="text-muted-foreground">DuckStrike Volume</div>
+              <div className="text-muted-foreground">Duck’N’FAI Volume</div>
             </div>
           </div>
 
@@ -27,7 +27,7 @@ export function StatsSection() {
             <div className="absolute inset-0 bg-muted rounded-lg transform transition-transform group-hover:scale-105" />
             <div className="relative p-8 text-center">
               <div className="text-4xl font-bold text-primary mb-2">500+</div>
-              <div className="text-muted-foreground">DuckStrike Users</div>
+              <div className="text-muted-foreground">Duck’N’FAI Users</div>
             </div>
           </div>
 
@@ -48,7 +48,7 @@ export function StatsSection() {
                 Growing Network
               </h3>
               <p className="text-muted-foreground">
-                Our DuckStrike community is expanding rapidly, with new users
+                Our Duck’N’FAI community is expanding rapidly, with new users
                 joining daily to experience the future of crypto transactions.
               </p>
             </div>
@@ -61,7 +61,7 @@ export function StatsSection() {
                 Active Development
               </h3>
               <p className="text-muted-foreground">
-                Continuous improvements and updates ensure DuckStrike remains at
+                Continuous improvements and updates ensure Duck’N’FAI remains at
                 the forefront of blockchain technology.
               </p>
             </div>

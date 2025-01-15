@@ -49,7 +49,7 @@ export const FloatingNav = ({
           onClick={() => onNavigate('home')}
           className="text-sm font-semibold hover:text-primary transition-colors"
         >
-          DuckStrike
+          Duck’N’FAI
         </button>
       </div>
 

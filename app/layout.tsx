@@ -15,9 +15,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: 'DuckStrike - Smart Crypto Transaction Extension',
+  title: 'Duck’N’FAI - Smart Crypto Transaction Extension',
   description:
-    'Manage your crypto transactions with ease using DuckStrike Chrome extension',
+    'Manage your crypto transactions with ease using Duck’N’FAI Chrome extension',
   icons: {
     icon: '/images/logo.webp',
   },
