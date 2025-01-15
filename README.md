@@ -15,7 +15,7 @@ DuckStrike is an innovative platform that integrates blockchain technology and a
 1. Clone the repository:
     ```bash
     git clone https://github.com/WeTranscend-labs/fe-duck-strike.git
-    cd fe-fuck-strike
+    cd fe-duckstrike
     ```
 2. Install dependencies:
     ```bash
