@@ -11,7 +11,7 @@ const ROADMAP_PHASES = [
         phase: "Phase 1: Beta Launch",
         icon: <Sparkles className="h-5 w-5" />,
         title: "Foundation & Testing",
-        timeline: "Q1 2024",
+        timeline: "Q1 2025",
         features: [
             "AI-powered transaction assistant beta testing",
             "Core wallet integration features",
@@ -28,7 +28,7 @@ const ROADMAP_PHASES = [
         phase: "Phase 2: Market Ready",
         icon: <Rocket className="h-5 w-5" />,
         title: "Enhanced Features & Stability",
-        timeline: "Q2 2024",
+        timeline: "Q2 2025",
         features: [
             "Advanced AI capabilities expansion",
             "Multi-chain support enhancement",
@@ -45,7 +45,7 @@ const ROADMAP_PHASES = [
         phase: "Phase 3: Enterprise Solutions",
         icon: <Shield className="h-5 w-5" />,
         title: "Security & Enterprise Focus",
-        timeline: "Q3 2024",
+        timeline: "Q3 2025",
         features: [
             "Enterprise-grade security implementation",
             "Institutional features rollout",
@@ -62,7 +62,7 @@ const ROADMAP_PHASES = [
         phase: "Phase 4: Global Expansion",
         icon: <Globe className="h-5 w-5" />,
         title: "Worldwide Adoption",
-        timeline: "Q4 2024",
+        timeline: "Q4 2025",
         features: [
             "Global market expansion",
             "Multi-language support",
