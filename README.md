@@ -79,7 +79,7 @@ These technologies work together to provide a secure, user-friendly, and scalabl
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to InquireA, please fork the repository, make your changes, and submit a pull request. We appreciate your help!
+Contributions are welcome! If you'd like to contribute to DuckStrike, please fork the repository, make your changes, and submit a pull request. We appreciate your help!
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
