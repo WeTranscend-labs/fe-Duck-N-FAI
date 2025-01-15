@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { GiDuck } from 'react-icons/gi';
 import { Card } from '@/components/ui/card';
-import { cn } from "@/lib/utils";
-import { useMotionValue, motion, useMotionTemplate } from "framer-motion";
+import { cn } from '@/lib/utils';
+import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
 import { ScrollToTop } from '../scroll-top';
 
 const HeroHighlight = ({
@@ -34,7 +34,7 @@ const HeroHighlight = ({
   return (
     <div
       className={cn(
-        "relative h-full flex items-center bg-background dark:bg-background justify-center w-full group",
+        'relative h-full flex items-center bg-background dark:bg-background justify-center w-full group',
         containerClassName
       )}
       onMouseMove={handleMouseMove}
@@ -53,7 +53,7 @@ const HeroHighlight = ({
           `,
         }}
       />
-      <div className={cn("relative z-20", className)}>{children}</div>
+      <div className={cn('relative z-20', className)}>{children}</div>
     </div>
   );
 };
@@ -80,13 +80,14 @@ export function HeroSection() {
               Experience{' '}
               <motion.span
                 className="text-primary relative inline-block"
-                initial={{ backgroundSize: "0% 100%" }}
-                animate={{ backgroundSize: "100% 100%" }}
+                initial={{ backgroundSize: '0% 100%' }}
+                animate={{ backgroundSize: '100% 100%' }}
                 transition={{ duration: 1, delay: 0.5 }}
                 style={{
-                  backgroundImage: "linear-gradient(120deg, rgba(255, 218, 0, 0.2) 0%, rgba(255, 218, 0, 0.2) 100%)",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "0% 100%",
+                  backgroundImage:
+                    'linear-gradient(120deg, rgba(255, 218, 0, 0.2) 0%, rgba(255, 218, 0, 0.2) 100%)',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: '0% 100%',
                 }}
               >
                 DuckStrike Transactions
@@ -99,9 +100,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Revolutionize your crypto experience with our AI-powered DuckStrike
-              extension. Simple commands, powerful results - all on the secure
-              DuckStrike network.
+              Revolutionize your crypto experience with our AI-powered
+              DuckStrike extension. Simple commands, powerful results - all on
+              the secure DuckStrike network.
             </motion.p>
 
             {/* Quick Benefits */}
@@ -154,19 +155,27 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <Card className="p-6 text-left border-primary/20 hover:border-primary/40 transition-all hover:scale-[1.02] bg-background/50 backdrop-blur-sm">
-                <h3 className="mb-2 font-semibold text-primary">Natural Commands</h3>
+                <h3 className="mb-2 font-semibold text-primary">
+                  Natural Commands
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  "Send 0.5 DUCK to Alex" - it's that simple on DuckStrike's intuitive platform.
+                  "Send 0.5 DUCK to Alex" - it's that simple on DuckStrike's
+                  intuitive platform.
                 </p>
               </Card>
               <Card className="p-6 text-left border-primary/20 hover:border-primary/40 transition-all hover:scale-[1.02] bg-background/50 backdrop-blur-sm">
-                <h3 className="mb-2 font-semibold text-primary">DuckStrike Analysis</h3>
+                <h3 className="mb-2 font-semibold text-primary">
+                  DuckStrike Analysis
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  AI-powered system optimizes your transactions on the DuckStrike network.
+                  AI-powered system optimizes your transactions on the
+                  DuckStrike network.
                 </p>
               </Card>
               <Card className="hidden p-6 text-left lg:block border-primary/20 hover:border-primary/40 transition-all hover:scale-[1.02] bg-background/50 backdrop-blur-sm">
-                <h3 className="mb-2 font-semibold text-primary">Chain Support</h3>
+                <h3 className="mb-2 font-semibold text-primary">
+                  Chain Support
+                </h3>
                 <p className="text-sm text-muted-foreground">
                   Native DuckStrike support with cross-chain capabilities.
                 </p>

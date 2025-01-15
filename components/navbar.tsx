@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Button } from '@/components/ui/button';
 import { Moon, Sun, Menu, X } from 'lucide-react';
@@ -7,6 +7,9 @@ import { useEffect, useState } from 'react';
 import { GiDuck } from 'react-icons/gi';
 import { CustomConnectButton } from './wallet/CustomConnectButton';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import logo from '@/public/imgs/logo.webp';
+import Logo from './common/Logo';
 
 interface NavbarProps {
   onNavigate: (section: string) => void;
@@ -36,19 +39,18 @@ export function Navbar({ onNavigate }: NavbarProps) {
 
   return (
     <motion.nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled ? 'bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-lg' : 'bg-transparent'
-        }`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? 'bg-background/80 backdrop-blur-md border-b border-primary/10 shadow-lg'
+          : 'bg-transparent'
+      }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-full bg-primary p-0.5">
-            <div className="flex h-full w-full items-center justify-center rounded-full bg-background/80">
-              <GiDuck className="h-4 w-4 text-primary" />
-            </div>
-          </div>
+          <Logo className="h-8 w-8" />
           <button
             onClick={() => handleNavigate('home')}
             className="text-lg font-semibold hover:text-primary transition-colors"
@@ -117,7 +119,11 @@ export function Navbar({ onNavigate }: NavbarProps) {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="rounded-xl hover:bg-primary/10"
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>

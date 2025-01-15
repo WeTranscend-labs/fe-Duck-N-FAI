@@ -25,7 +25,7 @@ interface StatsProps {
 }
 
 const PropDefaults: StatsProps = {
-  name: 'Bitcoin',
+  name: 'DUCK',
   rank: 1,
   totalSupply: 21000000,
   volume: 14817933452.303745,

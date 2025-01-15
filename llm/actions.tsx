@@ -26,53 +26,55 @@ const binance = new MainClient({
 });
 
 const content = `
+Your name is DUCKSTRIKE CHATBOT. 
 You are an intelligent virtual assistant for DuckChain, a cutting-edge blockchain platform designed to provide users with a seamless and secure cryptocurrency experience.
 
-Your primary objective is to guide users through the DuckChain ecosystem, offering support, insights, and assistance while maintaining a friendly and professional demeanor.
+### Mission Statement
+Your primary goal is to assist users in navigating the DuckChain ecosystem. You provide guidance with professionalism, focusing on concise and clear communication.
 
-Key Interaction Guidelines:
-- Respond to user queries about DuckChain's capabilities concisely and engagingly
-- Use a conversational yet informative tone
-- Emphasize the platform's user-friendly and innovative features
+### Key Responsibilities
+1. **Wallet Management**  
+   - Help users connect their wallets.  
+   - Assist with address setup.  
+   - Provide basic transaction insights.
 
-Supported Capabilities (High-Level Overview):
-1. Wallet Management
-   - Wallet connection
-   - Address management
-   - Basic transaction tracking
+2. **Cryptocurrency Interactions**  
+   - Share real-time token prices.  
+   - Offer quick market updates.  
+   - Enable token exploration.
 
-2. Cryptocurrency Interactions
-   - Price inquiries
-   - Market insights
-   - Token exploration
+3. **Educational Support**  
+   - Explain blockchain basics.  
+   - Highlight DuckChain's unique features.  
+   - Simplify cryptocurrency concepts.
 
-3. Educational Support
-   - Blockchain basics
-   - DuckChain platform features
-   - Cryptocurrency fundamentals
+### User Interaction Guidelines
+- Always respond concisely. Keep answers within 2-3 sentences unless more details are requested.  
+- Use approachable language tailored to the user's level of understanding.  
+- Emphasize DuckChain's innovative, user-friendly, and secure design.  
 
-Interaction Principles:
-- If asked about specific technical details, provide a general explanation
-- Highlight DuckChain's unique value propositions
-- Avoid deep technical jargon
-- Maintain an approachable and supportive communication style
+### Conversation Principles
+- **Tone**: Friendly, clear, and professional.  
+- **Language**: Avoid technical jargon unless necessary.  
+- **Expectations**: Be realistic about the platform's current capabilities.  
 
-Conversation Boundaries:
-- This is a demo environment with limited full functionality
-- Some advanced features may be simulated or not fully implemented
-- Always guide users with realistic expectations
+### Sample Prompts
+1. When asked "What can you do?":  
+   - "I'm your DuckChain assistant! I can help you connect wallets, check cryptocurrency prices, explore tokens, and learn about DuckChain's features. How can I assist you today?"
 
-Communication Style:
-- Friendly and professional
-- Clear and concise
-- Enthusiastic about blockchain technology
-- Patient with users of all technical backgrounds
+2. When a user asks about blockchain:  
+   - "Blockchain is a secure and transparent digital ledger. I can explain more if you're interested!"
 
-When users ask "What can you do?", respond with:
-"I'm your DuckChain assistant! I can help you with wallet connections, provide cryptocurrency insights, explore token information, and guide you through our platform's features. How can I assist you today?"
+3. When explaining token details:  
+   - "This token is supported by DuckChain. Would you like to know about its market stats or use cases?"
 
-Special Note:
-Any messages in [ ] represent UI events or interactions within the DuckChain platform.
+### Notes for Demo Mode
+- Certain features may not be fully operational in this demo.  
+- Direct users to additional support or documentation for advanced inquiries.  
+
+Special instructions:  
+- Keep all responses concise and to the point, expanding only when explicitly requested.  
+- Any messages enclosed in [ ] represent actions or prompts triggered within the DuckChain UI.  
 `;
 
 export async function sendMessage(message: string): Promise<{
@@ -154,30 +156,16 @@ export async function sendMessage(message: string): Promise<{
         description: 'Trigger wallet connection interface',
         parameters: z.object({}),
         generate: async function* () {
-          yield (
-            <BotCard>
-              <BotMessage>
-                Please connect your wallet. A connection modal will open
-                shortly.
-              </BotMessage>
-              <div
-                data-wallet-connect-trigger="true"
-                className="cursor-pointer"
-              >
-                Click to Connect Wallet
-              </div>
-            </BotCard>
-          );
-
           history.done([
             ...history.get(),
             {
               role: 'assistant',
               name: 'connect_wallet',
-              content: `[Wallet connection triggered]`,
+              content: `[Wallet connection triggered automatically]`,
             },
           ]);
 
+          // Trả về thành phần AutoConnectWallet ngay lập tức
           return (
             <BotCard>
               <AutoConnectWallet />
@@ -186,114 +174,46 @@ export async function sendMessage(message: string): Promise<{
         },
       },
       get_crypto_price: {
-        description: 'Get the current price of a given cryptocurrency',
+        description:
+          'Get the current price of a given cryptocurrency. Use this to show the price to the user.',
         parameters: z.object({
-          symbol: z.string().describe('Cryptocurrency symbol'),
+          symbol: z
+            .string()
+            .describe(
+              'The name or symbol of the cryptocurrency. e.g. BTC/ETH/SOL.'
+            ),
         }),
         generate: async function* ({ symbol }: { symbol: string }) {
-          // Yield loading state
           yield (
             <BotCard>
               <PriceSkeleton />
             </BotCard>
           );
 
-          try {
-            // Validate environment variables
-            if (!env.BINANCE_API_KEY || !env.BINANCE_API_SECRET) {
-              console.error('Missing Binance API credentials');
-              return (
-                <BotMessage>
-                  API configuration error. Please contact support.
-                </BotMessage>
-              );
-            }
+          const stats = await binance.get24hrChangeStatististics({
+            symbol: `${symbol}USDT`,
+          });
+          // get the last price
+          const price = Number(stats.lastPrice);
+          // extract the delta
+          const delta = Number(stats.priceChange);
 
-            // Enhanced logging
-            console.log(`Fetching price for symbol: ${symbol}`);
-            console.log(
-              `Binance API Key (partial): ${env.BINANCE_API_KEY.slice(0, 5)}...`
-            );
+          await sleep(1000);
 
-            // Safe symbol transformation
-            const safeSymbol = symbol.toUpperCase().trim();
-            const validSymbols = ['BTC', 'ETH', 'BNB', 'SOL']; // Add supported symbols
+          history.done([
+            ...history.get(),
+            {
+              role: 'assistant',
+              name: 'get_crypto_price',
+              content: `[Price of ${symbol} = ${price}]`,
+            },
+          ]);
 
-            // Symbol validation
-            if (!validSymbols.includes(safeSymbol)) {
-              return (
-                <BotMessage>
-                  Unsupported cryptocurrency. Supported:{' '}
-                  {validSymbols.join(', ')}
-                </BotMessage>
-              );
-            }
-
-            // Comprehensive error handling for Binance API
-            let stats;
-            try {
-              stats = await binance.get24hrChangeStatististics({
-                symbol: `${safeSymbol}USDT`,
-              });
-            } catch (apiError) {
-              console.error('Binance API Error:', apiError);
-
-              // Fallback mechanism
-              return (
-                <BotMessage>
-                  Unable to fetch price. API connection failed.
-                  {apiError instanceof Error ? apiError.message : ''}
-                </BotMessage>
-              );
-            }
-
-            // Robust data extraction with default values
-            const price = Number(stats?.lastPrice ?? 0);
-            const delta = Number(stats?.priceChange ?? 0);
-
-            // Extensive logging
-            console.log(`Fetched Price: ${price}`);
-            console.log(`Price Delta: ${delta}`);
-
-            // Validate price
-            if (price <= 0) {
-              return (
-                <BotMessage>
-                  Invalid price data received for {safeSymbol}
-                </BotMessage>
-              );
-            }
-
-            // Artificial delay for UX
-            await sleep(1000);
-
-            // Update AI history
-            history.done([
-              ...history.get(),
-              {
-                role: 'assistant',
-                name: 'get_crypto_price',
-                content: `[Price of ${safeSymbol} = ${price.toFixed(2)}]`,
-              },
-            ]);
-
-            // Return price component
-            return (
-              <BotCard>
-                <Price name={safeSymbol} price={price} delta={delta} />
-              </BotCard>
-            );
-          } catch (error) {
-            // Global error handler
-            console.error('Crypto Price Fetch Failed:', error);
-
-            return (
-              <BotMessage>
-                An unexpected error occurred.
-                {error instanceof Error ? error.message : 'Unknown error'}
-              </BotMessage>
-            );
-          }
+          return (
+            <BotCard>
+              <Price name={symbol} price={price} delta={delta} />
+            </BotCard>
+          );
         },
       },
       get_crypto_stats: {
@@ -302,7 +222,9 @@ export async function sendMessage(message: string): Promise<{
         parameters: z.object({
           slug: z
             .string()
-            .describe('The full name of the cryptocurrency in lowercase.'),
+            .describe(
+              'The full name of the cryptocurrency in lowercase. e.g. bitcoin/ethereum/solana.'
+            ),
         }),
         generate: async function* ({ slug }: { slug: string }) {
           yield (
