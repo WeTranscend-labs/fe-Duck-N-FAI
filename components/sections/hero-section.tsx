@@ -7,7 +7,6 @@ import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
 import { ScrollToTop } from '../scroll-top';
-import duckImage from '@/public/imgs/duck-hero-section.webp';
 
 import duckImage from '@/public/imgs/duck-hero-section.webp';
 import Image from 'next/image';
