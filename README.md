@@ -1,6 +1,5 @@
 # Duck’N’FAI - Frontend
 
-
 ## Project Overview
 
 DuDuck’N’FAI is an innovative platform that integrates blockchain technology and artificial intelligence (AI) to provide seamless cryptocurrency management and interactions. The platform allows users to manage their crypto wallets, perform transactions, get real-time market insights, and leverage AI for personalized assistance.
@@ -50,7 +49,7 @@ The Duck’N’FAI frontend leverages a variety of modern technologies to provid
 - **Tailwind CSS**: A utility-first CSS framework that allows for rapid UI development with minimal custom styles. It makes it easy to create responsive, maintainable, and customizable designs.
 
 - **Radix UI**: A set of low-level UI primitives that provide the building blocks for creating accessible and customizable components. Radix UI is used for elements such as dialogs, sliders, and popovers.
-- **RainbowKit**: A UI library for integrating Ethereum wallet connections, such as MetaMask and WalletConnect, into your web application with minimal setup.
+- **RainbowKit**: A UI library for integrating EVM wallet connections, such as MetaMask and WalletConnect, into your web application with minimal setup.
 - **AI SDKs**:
 
   - **Google Generative AI SDK**: For integrating generative AI features to offer personalized user experiences, such as AI-powered assistants and predictions.
