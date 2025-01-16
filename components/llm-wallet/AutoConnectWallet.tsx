@@ -37,6 +37,8 @@ export function AutoConnectWallet() {
     }
   };
 
+  console.log('1234');
+
   // Quản lý kết nối
   useEffect(() => {
     const MAX_RECONNECT_ATTEMPTS = 1;

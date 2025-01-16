@@ -111,7 +111,7 @@ const TokenTransferComponent = ({
         <div className="space-y-4">
           <div className="flex justify-between">
             <span>Amount:</span>
-            <strong>{amount} ETH</strong>
+            <strong>{amount} TON</strong>
           </div>
           <div className="flex justify-between">
             <span>Recipient Address:</span>
