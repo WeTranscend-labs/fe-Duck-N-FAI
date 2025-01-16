@@ -125,19 +125,6 @@ const TokenTransferComponent = ({
             {getStatusBadge()}
           </div>
 
-          {txHash && (
-            <div className="mt-2">
-              <a
-                href={`https://etherscan.io/tx/${txHash}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                View Transaction Details
-              </a>
-            </div>
-          )}
-
           {error && (
             <div className="text-red-500 mt-2">
               <strong>Error:</strong> {error}
